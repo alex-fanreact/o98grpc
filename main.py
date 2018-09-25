@@ -3,14 +3,37 @@ from concurrent import futures
 
 import grpc
 
+import pymongo
+from bson.objectid import ObjectId
+
 import other98_pb2 as other98_pb2
 import other98_pb2_grpc as other98_pb2_grpc
 
+
+def getPostFromDb(collection, idstring):
+    return collection.find_one({'_id': ObjectId(idstring)})
+
+def getPostFeed(collection, *postTags, pageSize):
+    return collection.find({'postTags': {'$in': postTags}}).limit(pageSize)
+
 class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
+    serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
+    theOther98Db = serverInstance["theOther98Test"]
+
+    postTags = ['forum']
+    feed = getPostFeed(theOther98Db.posts, *postTags, pageSize=20)
+    obj = next(feed, None)
+    if obj:
+        print(obj)
+
     def __init__(self):
         print('init')
     
     def GetFeed(self, request, context):
+        # postFeedView = other98_pb2.PostFeedView()
+        # postFeedView.posts = gRPCServer.theOther98Db["posts"].find()
+        for x in gRPCServer.serverInstance["theOther98Test"]["posts"].find(request.pageSize):
+            print(x)
         return other98_pb2.PostFeedView(id = 'id')
 
 def serve():
