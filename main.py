@@ -1,5 +1,6 @@
 import time
 from concurrent import futures
+import util
 
 import grpc
 
@@ -8,12 +9,19 @@ from bson.objectid import ObjectId
 
 import other98_pb2 as other98_pb2
 import other98_pb2_grpc as other98_pb2_grpc
+from google.protobuf.json_format import MessageToJson
+from google.protobuf.json_format import MessageToDict
 
 
-def getPostFromDb(collection, idstring):
-    return collection.find_one({'_id': ObjectId(idstring)})
+def get_post_view(collection: pymongo.collection, idstring: str) -> other98_pb2.PostView:
+    raw=collection.find_one({'_id': ObjectId(idstring)})
+    print(raw)
+    postview = util.parse_post_view(raw)
+    postview.id = idstring
+    return postview
 
-def getPostFeed(collection, *postTags, pageId='', pageSize=20):
+
+def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pageSize:int=20):
     try:
         objectId = ObjectId(pageId)
         return collection.find({'$and': [{'postTags': {'$in': postTags}},
@@ -22,15 +30,50 @@ def getPostFeed(collection, *postTags, pageId='', pageSize=20):
         return collection.find({'postTags': {'$in': postTags}}).limit(pageSize)
 
 
+def create_post(collection: pymongo.collection, post: other98_pb2.Post):
+    postView = other98_pb2.PostView()
+    postView.postSmallView.title = post.postSmallView.title
+    postView.postSmallView.description = post.postSmallView.description
+    postView.postSmallView.featuredImageLink = post.postSmallView.featuredImageLink
+    postView.postSmallView.featuredVideoLink = post.postSmallView.featuredVideoLink
+    postView.postSmallView.featuredCaption = post.postSmallView.featuredCaption
+    postView.postSmallView.createDate = util.current_milli_time()
+    postView.postSmallView.type = post.postSmallView.type
+    postView.postSmallView.authorHandle = post.postSmallView.authorHandle
+    postView.postTags.extend(post.postTags)
+    postView.contentBlocks.extend(post.contentBlocks)
+    postView.comments.extend([])
+    collection.insert_one(util.parse_to_document(postView))
+
+
+def update_post(postview_collection: pymongo, updated_postvew: other98_pb2.PostView):
+    postview_collection.replace_one({'_id': ObjectId(updated_postvew.id)}, util.parse_to_document(updated_postvew))
+
+
+def get_profile(collection: pymongo.collection, handle: str) -> other98_pb2.Profile:
+    return util.parse_profile(collection.find_one({'handle': handle}))
+
+
+def create_comment(collection: pymongo.collection, comment: other98_pb2.Comment):
+    if comment.postViewId:
+        postview = get_post_view(collection, comment.postViewId)
+        i = 0
+        for com in postview.comments:
+            i += 1
+        comment.id = i
+        comment.score = 0
+        comment.createDateMillis = util.current_milli_time()
+        postview.comments.extend([comment])
+        update_post(collection, postview)
+    else:
+        return
+
+
 class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
     serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
     theOther98Db = serverInstance["theOther98Test"]
-
-    postTags = ['forum']
-    feed = getPostFeed(theOther98Db.posts, *postTags, pageId='5ba84cb730341313fc6a42df', pageSize=20)
-    obj = next(feed, None)
-    if obj:
-        print(obj)
+    profilesCollection = theOther98Db["profiles"]
+    postsCollection = theOther98Db["posts"]
 
     def __init__(self):
         print('init')
