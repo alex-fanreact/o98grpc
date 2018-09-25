@@ -13,15 +13,21 @@ import other98_pb2_grpc as other98_pb2_grpc
 def getPostFromDb(collection, idstring):
     return collection.find_one({'_id': ObjectId(idstring)})
 
-def getPostFeed(collection, *postTags, pageSize):
-    return collection.find({'postTags': {'$in': postTags}}).limit(pageSize)
+def getPostFeed(collection, *postTags, pageId='', pageSize=20):
+    try:
+        objectId = ObjectId(pageId)
+        return collection.find({'$and': [{'postTags': {'$in': postTags}},
+                                         {'_id': {'$gt': objectId}}]}).limit(pageSize)
+    except:
+        return collection.find({'postTags': {'$in': postTags}}).limit(pageSize)
+
 
 class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
     serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
     theOther98Db = serverInstance["theOther98Test"]
 
     postTags = ['forum']
-    feed = getPostFeed(theOther98Db.posts, *postTags, pageSize=20)
+    feed = getPostFeed(theOther98Db.posts, *postTags, pageId='5ba84cb730341313fc6a42df', pageSize=20)
     obj = next(feed, None)
     if obj:
         print(obj)
