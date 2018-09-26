@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='helloworld',
   syntax='proto3',
   serialized_options=_b('\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'),
-  serialized_pb=_b('\n\rother98.proto\x12\nhelloworld\"\x13\n\x02Id\x12\r\n\x05value\x18\x01 \x01(\t\"A\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\"\x17\n\x06Handle\x12\r\n\x05value\x18\x01 \x01(\t\"\x95\x01\n\x06Result\x12\x31\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1d.helloworld.Result.StatusCode\"X\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x10\n\x0cUNAUTHORIZED\x10\x01\x12\r\n\tFORBIDDEN\x10\x02\x12\r\n\tNOT_FOUND\x10\x03\x12\x12\n\x0eINTERNAL_ERROR\x10\x04\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"{\n\x04Post\x12\x30\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x19.helloworld.PostSmallView\x12/\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x18.helloworld.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\xb2\x01\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x19.helloworld.PostSmallView\x12/\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x18.helloworld.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12%\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x13.helloworld.Comment\"\x89\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x30\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x19.helloworld.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"\xdf\x01\n\x0c\x43ontentBlock\x12\x37\n\x04type\x18\x01 \x01(\x0e\x32).helloworld.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12*\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x18.helloworld.ContentBlock\"Y\n\x10\x43ontentBlockType\x12\x08\n\x04Text\x10\x00\x12\t\n\x05Image\x10\x01\x12\x10\n\x0cImageGallery\x10\x02\x12\x08\n\x04Link\x10\x03\x12\t\n\x05Video\x10\x04\x12\t\n\x05Quote\x10\x05\"v\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\"E\n\x0b\x43ommentView\x12$\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x13.helloworld.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\x32\xac\x02\n\nTheOther98\x12@\n\x07GetFeed\x12\x17.helloworld.FeedRequest\x1a\x18.helloworld.PostFeedView\"\x00\x30\x01\x12\x31\n\x07GetPost\x12\x0e.helloworld.Id\x1a\x14.helloworld.PostView\"\x00\x12\x37\n\nGetProfile\x12\x12.helloworld.Handle\x1a\x13.helloworld.Profile\"\x00\x12\x34\n\nCreatePost\x12\x10.helloworld.Post\x1a\x12.helloworld.Result\"\x00\x12:\n\rCreateComment\x12\x13.helloworld.Comment\x1a\x12.helloworld.Result\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+  serialized_pb=_b('\n\rother98.proto\x12\nhelloworld\"\x13\n\x02Id\x12\r\n\x05value\x18\x01 \x01(\t\"A\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\"\x17\n\x06Handle\x12\r\n\x05value\x18\x01 \x01(\t\"\x95\x01\n\x06Result\x12\x31\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1d.helloworld.Result.StatusCode\"X\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x10\n\x0cUNAUTHORIZED\x10\x01\x12\r\n\tFORBIDDEN\x10\x02\x12\r\n\tNOT_FOUND\x10\x03\x12\x12\n\x0eINTERNAL_ERROR\x10\x04\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"{\n\x04Post\x12\x30\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x19.helloworld.PostSmallView\x12/\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x18.helloworld.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"K\n\x11\x43reatePostRequest\x12\x1e\n\x04post\x18\x01 \x01(\x0b\x32\x10.helloworld.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"\xb2\x01\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x19.helloworld.PostSmallView\x12/\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x18.helloworld.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12%\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x13.helloworld.Comment\"\x89\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x30\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x19.helloworld.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"\xdf\x01\n\x0c\x43ontentBlock\x12\x37\n\x04type\x18\x01 \x01(\x0e\x32).helloworld.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12*\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x18.helloworld.ContentBlock\"Y\n\x10\x43ontentBlockType\x12\x08\n\x04Text\x10\x00\x12\t\n\x05Image\x10\x01\x12\x10\n\x0cImageGallery\x10\x02\x12\x08\n\x04Link\x10\x03\x12\t\n\x05Video\x10\x04\x12\t\n\x05Quote\x10\x05\"v\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\"E\n\x0b\x43ommentView\x12$\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x13.helloworld.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\x32\xb9\x02\n\nTheOther98\x12@\n\x07GetFeed\x12\x17.helloworld.FeedRequest\x1a\x18.helloworld.PostFeedView\"\x00\x30\x01\x12\x31\n\x07GetPost\x12\x0e.helloworld.Id\x1a\x14.helloworld.PostView\"\x00\x12\x37\n\nGetProfile\x12\x12.helloworld.Handle\x1a\x13.helloworld.Profile\"\x00\x12\x41\n\nCreatePost\x12\x1d.helloworld.CreatePostRequest\x1a\x12.helloworld.Result\"\x00\x12:\n\rCreateComment\x12\x13.helloworld.Comment\x1a\x12.helloworld.Result\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 )
 
 
@@ -91,8 +91,8 @@ _CONTENTBLOCK_CONTENTBLOCKTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1068,
-  serialized_end=1157,
+  serialized_start=1145,
+  serialized_end=1234,
 )
 _sym_db.RegisterEnumDescriptor(_CONTENTBLOCK_CONTENTBLOCKTYPE)
 
@@ -347,6 +347,44 @@ _POST = _descriptor.Descriptor(
 )
 
 
+_CREATEPOSTREQUEST = _descriptor.Descriptor(
+  name='CreatePostRequest',
+  full_name='helloworld.CreatePostRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='post', full_name='helloworld.CreatePostRequest.post', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='viewable_roles', full_name='helloworld.CreatePostRequest.viewable_roles', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=556,
+  serialized_end=631,
+)
+
+
 _POSTVIEW = _descriptor.Descriptor(
   name='PostView',
   full_name='helloworld.PostView',
@@ -401,8 +439,8 @@ _POSTVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=557,
-  serialized_end=735,
+  serialized_start=634,
+  serialized_end=812,
 )
 
 
@@ -453,8 +491,8 @@ _POSTFEEDVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=738,
-  serialized_end=875,
+  serialized_start=815,
+  serialized_end=952,
 )
 
 
@@ -498,8 +536,8 @@ _PROFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=877,
-  serialized_end=931,
+  serialized_start=954,
+  serialized_end=1008,
 )
 
 
@@ -544,8 +582,8 @@ _CONTENTBLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=934,
-  serialized_end=1157,
+  serialized_start=1011,
+  serialized_end=1234,
 )
 
 
@@ -610,8 +648,8 @@ _COMMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1159,
-  serialized_end=1277,
+  serialized_start=1236,
+  serialized_end=1354,
 )
 
 
@@ -648,14 +686,15 @@ _COMMENTVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1279,
-  serialized_end=1348,
+  serialized_start=1356,
+  serialized_end=1425,
 )
 
 _RESULT.fields_by_name['statusCode'].enum_type = _RESULT_STATUSCODE
 _RESULT_STATUSCODE.containing_type = _RESULT
 _POST.fields_by_name['postSmallView'].message_type = _POSTSMALLVIEW
 _POST.fields_by_name['contentBlocks'].message_type = _CONTENTBLOCK
+_CREATEPOSTREQUEST.fields_by_name['post'].message_type = _POST
 _POSTVIEW.fields_by_name['postSmallView'].message_type = _POSTSMALLVIEW
 _POSTVIEW.fields_by_name['contentBlocks'].message_type = _CONTENTBLOCK
 _POSTVIEW.fields_by_name['comments'].message_type = _COMMENT
@@ -670,6 +709,7 @@ DESCRIPTOR.message_types_by_name['Handle'] = _HANDLE
 DESCRIPTOR.message_types_by_name['Result'] = _RESULT
 DESCRIPTOR.message_types_by_name['PostSmallView'] = _POSTSMALLVIEW
 DESCRIPTOR.message_types_by_name['Post'] = _POST
+DESCRIPTOR.message_types_by_name['CreatePostRequest'] = _CREATEPOSTREQUEST
 DESCRIPTOR.message_types_by_name['PostView'] = _POSTVIEW
 DESCRIPTOR.message_types_by_name['PostFeedView'] = _POSTFEEDVIEW
 DESCRIPTOR.message_types_by_name['Profile'] = _PROFILE
@@ -719,6 +759,13 @@ Post = _reflection.GeneratedProtocolMessageType('Post', (_message.Message,), dic
   # @@protoc_insertion_point(class_scope:helloworld.Post)
   ))
 _sym_db.RegisterMessage(Post)
+
+CreatePostRequest = _reflection.GeneratedProtocolMessageType('CreatePostRequest', (_message.Message,), dict(
+  DESCRIPTOR = _CREATEPOSTREQUEST,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:helloworld.CreatePostRequest)
+  ))
+_sym_db.RegisterMessage(CreatePostRequest)
 
 PostView = _reflection.GeneratedProtocolMessageType('PostView', (_message.Message,), dict(
   DESCRIPTOR = _POSTVIEW,
@@ -771,8 +818,8 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1351,
-  serialized_end=1651,
+  serialized_start=1428,
+  serialized_end=1741,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetFeed',
@@ -806,7 +853,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
     full_name='helloworld.TheOther98.CreatePost',
     index=3,
     containing_service=None,
-    input_type=_POST,
+    input_type=_CREATEPOSTREQUEST,
     output_type=_RESULT,
     serialized_options=None,
   ),

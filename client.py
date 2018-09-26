@@ -18,6 +18,26 @@ def get_feed(stub, postTags: [str], page_id:str='', page_size:int=20):
     return stub.GetFeed(request)
 
 
+def create_post(stub, postSmallView: other98_pb2.PostSmallView, contentBlocks: [other98_pb2.ContentBlock], postTags: [str], viewable_permissions: [str]=None):
+    post = other98_pb2.Post()
+    post.postSmallView.title = postSmallView.title
+    post.postSmallView.description = postSmallView.description
+    post.postSmallView.featuredImageLink = postSmallView.featuredImageLink
+    # post.postSmallView.featuredVideoLink = postSmallView.featuredVideoLink
+    # post.postSmallView.featuredCaption = postSmallView.featuredCaption
+    post.postSmallView.type = postSmallView.type
+    post.postSmallView.authorHandle = postSmallView.authorHandle
+
+    post.contentBlocks.extend(contentBlocks)
+    post.postTags.extend(postTags)
+
+    create_post_request = other98_pb2.CreatePostRequest()
+    create_post_request.post = post
+    if viewable_permissions:
+        create_post_request.viewable_roles.extend(viewable_permissions)
+    return stub.CreatePost(create_post_request)
+
+
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs

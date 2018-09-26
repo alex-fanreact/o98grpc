@@ -13,6 +13,7 @@ import other98_pb2_grpc as other98_pb2_grpc
 from google.protobuf.json_format import MessageToJson
 from google.protobuf.json_format import MessageToDict
 
+default_roles_viewable = ['user', 'anonymous']
 
 def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None) -> other98_pb2.PostView:
     if idstring and idstring != '' and idstring != "":
@@ -27,7 +28,6 @@ def get_post_view(collection: pymongo.collection, idstring: str = '', object_id:
         return postview
 
 
-
 def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pageSize:int=20):
     try:
         objectId = ObjectId(pageId)
@@ -37,7 +37,7 @@ def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pa
         return collection.find({'postTags': {'$in': postTags}}).limit(pageSize)
 
 
-def create_post(collection: pymongo.collection, post: other98_pb2.Post):
+def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_viewable: [str]):
     postView = other98_pb2.PostView()
     postView.postSmallView.title = post.postSmallView.title
     postView.postSmallView.description = post.postSmallView.description
@@ -50,10 +50,16 @@ def create_post(collection: pymongo.collection, post: other98_pb2.Post):
     postView.postTags.extend(post.postTags)
     postView.contentBlocks.extend(post.contentBlocks)
     postView.comments.extend([])
-    collection.insert_one(util.parse_to_document(postView))
+    dictionary = util.parse_to_document(postView)
+    dictionary["roles"] = roles_viewable
+    return collection.insert_one(dictionary).inserted_id
 
 
-def update_post(postview_collection: pymongo, updated_postview: other98_pb2.PostView, allow_update_comments=False):
+def update_post(postview_collection: pymongo, updated_postview: other98_pb2.PostView, allow_update_comments=False, updated_roles_viewable: [str] = None):
+    try:
+        raw_post = postview_collection.find_one({'_id': updated_postview.id})
+    except:
+        raw_post = None
     currentpostview = get_post_view(postview_collection, updated_postview.id)
     if updated_postview.postSmallView:
         if updated_postview.postSmallView.title and updated_postview.postSmallView.title != '':
@@ -69,7 +75,18 @@ def update_post(postview_collection: pymongo, updated_postview: other98_pb2.Post
     if updated_postview.comments and len(updated_postview.comments) > 0 and allow_update_comments:
         del currentpostview.comments[:]
         currentpostview.comments.extend(updated_postview.comments)
-    postview_collection.replace_one({'_id': ObjectId(updated_postview.id)}, util.parse_to_document(currentpostview))
+    dictionary = util.parse_to_document(currentpostview)
+    if updated_roles_viewable:
+        dictionary["roles"] = updated_roles_viewable
+    else:
+        if raw_post:
+            try:
+                dictionary["roles"] = raw_post["roles"]
+            except:
+                dictionary["roles"] = default_roles_viewable
+        else:
+            dictionary["roles"] = default_roles_viewable
+    postview_collection.replace_one({'_id': ObjectId(updated_postview.id)}, dictionary)
 
 
 def create_comment(collection: pymongo.collection, comment: other98_pb2.Comment):
@@ -171,6 +188,23 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         profile = get_profile(gRPCServer.profilesCollection, request.value)
         log_result(profile, request_log)
         return profile
+
+    def CreatePost(self, request, context):
+        viewable_roles = []
+        for role in request.viewable_roles:
+            viewable_roles.append(role)
+        if len(viewable_roles) == 0:
+            viewable_roles = default_roles_viewable
+        post = request.post
+        result_id = create_post(gRPCServer.postsCollection, post, viewable_roles)
+        result = other98_pb2.Result()
+        if result_id:
+            result.statusCode = 0
+            yield result
+        else:
+            result.statusCode = 4
+            yield result
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

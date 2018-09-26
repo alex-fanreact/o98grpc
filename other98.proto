@@ -12,7 +12,7 @@ service TheOther98 {
     rpc GetFeed (FeedRequest) returns (stream PostFeedView) {}
     rpc GetPost (Id) returns (PostView) {}
     rpc GetProfile (Handle) returns (Profile) {}
-    rpc CreatePost (Post) returns (Result) {}
+    rpc CreatePost (CreatePostRequest) returns (Result) {}
     rpc CreateComment (Comment) returns (Result) {}
 }
 
@@ -57,6 +57,11 @@ message Post {
     PostSmallView postSmallView = 1;
     repeated ContentBlock contentBlocks = 2;
     repeated string postTags = 3;
+}
+
+message CreatePostRequest {
+    Post post = 1;
+    repeated string viewable_roles = 2;
 }
 
 message PostView {

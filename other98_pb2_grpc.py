@@ -31,7 +31,7 @@ class TheOther98Stub(object):
         )
     self.CreatePost = channel.unary_unary(
         '/helloworld.TheOther98/CreatePost',
-        request_serializer=other98__pb2.Post.SerializeToString,
+        request_serializer=other98__pb2.CreatePostRequest.SerializeToString,
         response_deserializer=other98__pb2.Result.FromString,
         )
     self.CreateComment = channel.unary_unary(
@@ -100,7 +100,7 @@ def add_TheOther98Servicer_to_server(servicer, server):
       ),
       'CreatePost': grpc.unary_unary_rpc_method_handler(
           servicer.CreatePost,
-          request_deserializer=other98__pb2.Post.FromString,
+          request_deserializer=other98__pb2.CreatePostRequest.FromString,
           response_serializer=other98__pb2.Result.SerializeToString,
       ),
       'CreateComment': grpc.unary_unary_rpc_method_handler(
