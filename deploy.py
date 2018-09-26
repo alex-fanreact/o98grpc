@@ -55,6 +55,6 @@ if __name__ == '__main__':
         else:
             print("[deploy] new changes detected")
             kill()
-            #update()            
+            update()            
             restart()
         continue
