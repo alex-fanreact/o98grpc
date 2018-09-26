@@ -180,6 +180,7 @@ def serve():
     server.start()
     try:
         while True:
+            time.sleep(1)
             continue
     except KeyboardInterrupt:
         server.stop(0)
