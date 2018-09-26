@@ -5,7 +5,7 @@ def curRepo():
     return Repo(".")
 
 def fetchOrigin() -> None:
-    print("[deploy] fetching")
+    #print("[deploy] fetching")
     r = curRepo()
     r.remotes.origin.fetch()
 
@@ -50,9 +50,9 @@ if __name__ == '__main__':
     while True:
         time.sleep(30)
         fetchOrigin()
-        if isRecentCommit(): 
-            print("[deploy] version is recent")
-        else:
+        #if isRecentCommit(): 
+            #print("[deploy] version is recent")
+        if isRecentCommit() == False: 
             print("[deploy] new changes detected")
             kill()
             update()            
