@@ -82,6 +82,7 @@ class TheOther98Servicer(object):
 
 
 def add_TheOther98Servicer_to_server(servicer, server):
+    print("add_TheOther98Servicer_to_server")
   rpc_method_handlers = {
       'GetFeed': grpc.unary_stream_rpc_method_handler(
           servicer.GetFeed,
