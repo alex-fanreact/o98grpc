@@ -15,27 +15,27 @@ class TheOther98Stub(object):
       channel: A grpc.Channel.
     """
     self.GetFeed = channel.unary_stream(
-        '/helloworld.TheOther98/GetFeed',
+        '/TheOther98/GetFeed',
         request_serializer=other98__pb2.FeedRequest.SerializeToString,
         response_deserializer=other98__pb2.PostFeedView.FromString,
         )
     self.GetPost = channel.unary_unary(
-        '/helloworld.TheOther98/GetPost',
+        '/TheOther98/GetPost',
         request_serializer=other98__pb2.Id.SerializeToString,
         response_deserializer=other98__pb2.PostView.FromString,
         )
     self.GetProfile = channel.unary_unary(
-        '/helloworld.TheOther98/GetProfile',
+        '/TheOther98/GetProfile',
         request_serializer=other98__pb2.Handle.SerializeToString,
         response_deserializer=other98__pb2.Profile.FromString,
         )
     self.CreatePost = channel.unary_unary(
-        '/helloworld.TheOther98/CreatePost',
+        '/TheOther98/CreatePost',
         request_serializer=other98__pb2.CreatePostRequest.SerializeToString,
         response_deserializer=other98__pb2.Result.FromString,
         )
     self.CreateComment = channel.unary_unary(
-        '/helloworld.TheOther98/CreateComment',
+        '/TheOther98/CreateComment',
         request_serializer=other98__pb2.Comment.SerializeToString,
         response_deserializer=other98__pb2.Result.FromString,
         )
@@ -110,5 +110,5 @@ def add_TheOther98Servicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'helloworld.TheOther98', rpc_method_handlers)
+      'TheOther98', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
