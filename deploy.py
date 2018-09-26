@@ -48,7 +48,7 @@ if __name__ == '__main__':
     run()
     print(f'[deploy] service process pid={pid}')
     while True:
-        time.sleep(5)
+        time.sleep(30)
         fetchOrigin()
         if isRecentCommit(): 
             print("[deploy] version is recent")
