@@ -46,9 +46,8 @@ class TheOther98Servicer(object):
   """
 
   def GetFeed(self, request, context):
-    """Sends a greeting
-    rpc SayHello (HelloRequest) returns (HelloReply) {}
-    """
+    # missing associated documentation comment in .proto file
+    pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
