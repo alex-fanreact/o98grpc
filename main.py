@@ -50,10 +50,6 @@ def update_post(postview_collection: pymongo, updated_postvew: other98_pb2.PostV
     postview_collection.replace_one({'_id': ObjectId(updated_postvew.id)}, util.parse_to_document(updated_postvew))
 
 
-def get_profile(collection: pymongo.collection, handle: str) -> other98_pb2.Profile:
-    return util.parse_profile(collection.find_one({'handle': handle}))
-
-
 def create_comment(collection: pymongo.collection, comment: other98_pb2.Comment):
     if comment.postViewId:
         postview = get_post_view(collection, comment.postViewId)
@@ -67,6 +63,30 @@ def create_comment(collection: pymongo.collection, comment: other98_pb2.Comment)
         update_post(collection, postview)
     else:
         return
+
+
+def get_comment(postview_collection: pymongo.collection, postview_id: str, comment_id: int) -> other98_pb2.Comment:
+    postview = get_post_view(postview_collection, postview_id)
+    if postview:
+        for index, item in enumerate(postview.comments):
+            if item.id == comment_id:
+                return item
+
+
+def update_comment(postview_collection: pymongo.collection, postview_id: str, comment_id: int, comment: other98_pb2.Comment):
+    postview = get_post_view(postview_collection, postview_id)
+    if postview:
+        for index, item in enumerate(postview.comments):
+            if item.id == comment_id:
+                print(index)
+                del postview.comments[index].contentBlocks[:]
+                postview.comments[index].contentBlocks.extend(comment.contentBlocks)
+                update_post(postview_collection, postview)
+                break
+
+
+def get_profile(collection: pymongo.collection, handle: str) -> other98_pb2.Profile:
+    return util.parse_profile(collection.find_one({'handle': handle}))
 
 
 class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
