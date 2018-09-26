@@ -72,7 +72,7 @@ message PostFeedView {
     PostSmallView postSmallView = 2;
     int64 numberOfComments = 3;
     int64 dateOfLastComment = 4;
-    string nextPageId = 5;
+//    string nextPageId = 5;
 }
 
 message Profile {

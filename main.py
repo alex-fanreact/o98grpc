@@ -1,4 +1,5 @@
 import time
+from datetime import datetime, timezone, timedelta
 from concurrent import futures
 import util
 
@@ -113,6 +114,22 @@ def update_profile(collection: pymongo.collection, handle: str, profile: other98
     current_profile = get_profile(collection, handle)
 
 
+LOG_GET_REQUEST = "\n**GET REQUEST**\n"
+
+
+def get_utc_time():
+    return datetime.now(timezone.utc)
+
+
+def log_get_request(description: str, request, context):
+    log = str(get_utc_time()) + LOG_GET_REQUEST + description + '\nCONTEXT: ' + str(context) + '\nREQUEST \n' + str(request)
+    print(log)
+    return log
+
+
+def log_result(result, request_log: str):
+    print(str(get_utc_time()) + '\n**RETURN**\n' + str(result) + request_log)
+
 
 class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
     serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -122,13 +139,38 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
 
     def __init__(self):
         print('init')
+
+    def GetPost(self, request, context):
+        request_log = log_get_request('get post request', request, context)
+        postview = get_post_view(gRPCServer.postsCollection, request.value)
+        log_result(postview, request_log)
+        return postview
     
     def GetFeed(self, request, context):
-        # postFeedView = other98_pb2.PostFeedView()
-        # postFeedView.posts = gRPCServer.theOther98Db["posts"].find()
-        for x in gRPCServer.serverInstance["theOther98Test"]["posts"].find(request.pageSize):
-            print(x)
-        return other98_pb2.PostFeedView(id = 'id')
+        request_log = log_get_request('get post feed', request, context)
+        posttags = ['']
+        for tag in request.postTags:
+            posttags.append(tag)
+        pageId = request.pageId
+        pageSize = request.pageSize
+        cursor = get_post_feed(gRPCServer.postsCollection, postTags=posttags, pageId=pageId, pageSize=pageSize)
+        try:
+            obj = cursor.next()
+            while obj:
+                try:
+                    log_result(util.parse_post_view(obj), request_log)
+                    yield util.parse_post_view(obj)
+                    obj = cursor.next()
+                except StopIteration:
+                    return
+        except StopIteration:
+            return
+
+    def GetProfile(self, request, context):
+        request_log = log_get_request('get profile', request, context)
+        profile = get_profile(gRPCServer.profilesCollection, request.value)
+        log_result(profile, request_log)
+        return profile
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
