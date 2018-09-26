@@ -164,6 +164,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         return postview
     
     def GetFeed(self, request, context):
+        print('getFeed')
         request_log = log_get_request('get post feed', request, context)
         posttags = ['']
         for tag in request.postTags:
@@ -214,6 +215,7 @@ def serve():
     server.start()
     try:
         while True:
+            time.sleep(1)
             continue
     except KeyboardInterrupt:
         server.stop(0)
