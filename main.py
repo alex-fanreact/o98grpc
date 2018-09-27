@@ -49,9 +49,9 @@ def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pa
     try:
         objectId = ObjectId(pageId)
         return collection.find({'$and': [{'postTags': {'$in': postTags}},
-                                         {'_id': {'$gt': objectId}}]}).limit(pageSize)
+                                         {'_id': {'$gt': objectId}}]}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
     except:
-        return collection.find({'postTags': {'$in': postTags}}).limit(pageSize)
+        return collection.find({'postTags': {'$in': postTags}}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
 
 
 def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_viewable: [str]):
