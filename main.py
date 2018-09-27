@@ -218,6 +218,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         # prepare objects for response
         feed_response_view = other98_pb2.FeedResponseView()
         post_feed_views = []
+        print(f"pageSize={pageSize}")
         cursor = get_post_feed(gRPCServer.postsCollection, postTags=posttags, pageId=pageId, pageSize=pageSize)
         try:
             obj = cursor.next()
