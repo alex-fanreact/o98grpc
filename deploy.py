@@ -16,11 +16,18 @@ def isRecentCommit() -> bool:
     else:
         return False
 
-def update() -> None:
+def printLastCommit():
+    r = curRepo()
+    c = r.head.object
+    date = c.committed_datetime
+    msg = c.message.strip()
+    print(f"[deploy] Current commit: {date.isoformat()} - {msg}")
+
+def update() -> None:   
     print("[deploy] pulling recent changes")
     r = curRepo()
     r.remote().pull()
-
+    
 pid = 0
 
 def run():
@@ -45,6 +52,7 @@ def restart():
 
 if __name__ == '__main__':
     atexit.register(quit_gracefully)
+    printLastCommit()
     run()
     print(f'[deploy] service process pid={pid}')
     while True:
