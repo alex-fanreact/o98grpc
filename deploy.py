@@ -55,7 +55,7 @@ if __name__ == '__main__':
     atexit.register(quit_gracefully)
     printLastCommit()
     run()
-    print(f'[deploy] service process pid={pid}')
+    print(f'[deploy] service process pid={proc.pid}')
     while True:
         time.sleep(30)
         fetchOrigin()
