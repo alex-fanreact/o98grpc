@@ -242,7 +242,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         for post in post_feed_views:
             feed_response_view.postFeedViews.extend([post])
             feed_response_view.nextPageId = post.postViewId
-        log_result(result=feed_response_view, request_log=request_log)
+        log_result(result=len(feed_response_view), request_log=request_log)
         return feed_response_view
 
     def GetProfile(self, request, context):
