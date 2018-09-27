@@ -28,19 +28,20 @@ def update() -> None:
     r = curRepo()
     r.remote().pull()
     
-pid = 0
+proc = None
 
 def run():
     print("[deploy] spawning service process")
+    global proc
     proc = subprocess.Popen([sys.executable, "main.py"])
-    global pid
-    pid = proc.pid
+
 
 def kill():
-    global pid
-    if pid == 0: return
+    global proc
+    if proc == None: return
     print("[deploy] killing service process")
-    os.kill(pid, signal.SIGKILL)
+    os.kill(proc.pid, signal.SIGKILL)
+    proc.wait()
 
 def quit_gracefully():
     print("[deploy] exiting")
