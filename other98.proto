@@ -9,7 +9,7 @@ package helloworld;
 
 // The greeting service definition.
 service TheOther98 {
-    rpc GetFeed (FeedRequest) returns (stream PostFeedView) {}
+    rpc GetFeed (FeedRequest) returns (FeedResponseView) {}
     rpc GetPost (Id) returns (PostView) {}
     rpc GetProfile (Handle) returns (Profile) {}
     rpc CreatePost (CreatePostRequest) returns (Result) {}
@@ -32,6 +32,7 @@ message Handle {
 
 message Result {
     StatusCode statusCode = 1;
+    string errorMessage = 2;
 
     enum StatusCode {
         OK = 0;
@@ -59,11 +60,6 @@ message Post {
     repeated string postTags = 3;
 }
 
-message CreatePostRequest {
-    Post post = 1;
-    repeated string viewable_roles = 2;
-}
-
 message PostView {
     string id = 1;
     PostSmallView postSmallView = 2;
@@ -77,7 +73,16 @@ message PostFeedView {
     PostSmallView postSmallView = 2;
     int64 numberOfComments = 3;
     int64 dateOfLastComment = 4;
-//    string nextPageId = 5;
+}
+
+message FeedResponseView {
+    repeated PostFeedView postFeedViews = 1;
+    string nextPageId = 2;
+}
+
+message CreatePostRequest {
+    Post post = 1;
+    repeated string viewable_roles = 2;
 }
 
 message Profile {

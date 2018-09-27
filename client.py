@@ -20,13 +20,7 @@ def get_feed(stub, postTags: [str], page_id:str='', page_size:int=20):
 
 def create_post(stub, postSmallView: other98_pb2.PostSmallView, contentBlocks: [other98_pb2.ContentBlock], postTags: [str], viewable_permissions: [str]=None):
     post = other98_pb2.Post()
-    post.postSmallView.title = postSmallView.title
-    post.postSmallView.description = postSmallView.description
-    post.postSmallView.featuredImageLink = postSmallView.featuredImageLink
-    # post.postSmallView.featuredVideoLink = postSmallView.featuredVideoLink
-    # post.postSmallView.featuredCaption = postSmallView.featuredCaption
-    post.postSmallView.type = postSmallView.type
-    post.postSmallView.authorHandle = postSmallView.authorHandle
+    post.postSmallView.CopyFrom(postSmallView)
 
     post.contentBlocks.extend(contentBlocks)
     post.postTags.extend(postTags)
@@ -38,6 +32,11 @@ def create_post(stub, postSmallView: other98_pb2.PostSmallView, contentBlocks: [
     return stub.CreatePost(create_post_request)
 
 
+def create_comment(stub, comment: other98_pb2.Comment):
+    if comment:
+        return stub.CreateComment(comment)
+
+
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs
@@ -47,11 +46,9 @@ def run():
         print("-------------- GetProfile --------------")
         print(get_profile(stub, 'avi'))
         print("-------------- GetFeed: Forum --------------")
-        for post in get_feed(stub, ['forum']):
-            print(post)
+        print(get_feed(stub, ['forum']))
         print("-------------- GetFeed: News --------------")
-        for post in get_feed(stub, ['news']):
-            print(post)
+        print(get_feed(stub, ['news']))
 
 
 if __name__ == '__main__':

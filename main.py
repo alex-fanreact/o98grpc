@@ -6,6 +6,7 @@ import util
 import grpc
 
 import pymongo
+import copy
 from bson.objectid import ObjectId
 
 import other98_pb2 as other98_pb2
@@ -38,15 +39,13 @@ def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pa
 
 
 def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_viewable: [str]):
+    if post.postSmallView.title is None or post.postSmallView.title == '':
+        # TODO: inform user
+        return
     postView = other98_pb2.PostView()
-    postView.postSmallView.title = post.postSmallView.title
-    postView.postSmallView.description = post.postSmallView.description
-    postView.postSmallView.featuredImageLink = post.postSmallView.featuredImageLink
-    # postView.postSmallView.featuredVideoLink = post.postSmallView.featuredVideoLink
-    # postView.postSmallView.featuredCaption = post.postSmallView.featuredCaption
+    postView.postSmallView.CopyFrom(post.postSmallView)
     postView.postSmallView.createDate = util.current_milli_time()
-    postView.postSmallView.type = post.postSmallView.type
-    postView.postSmallView.authorHandle = post.postSmallView.authorHandle
+    # TODO: assign authorHandle by signed in user
     postView.postTags.extend(post.postTags)
     postView.contentBlocks.extend(post.contentBlocks)
     postView.comments.extend([])
@@ -61,12 +60,12 @@ def update_post(postview_collection: pymongo, updated_postview: other98_pb2.Post
     except:
         raw_post = None
     currentpostview = get_post_view(postview_collection, updated_postview.id)
+    if currentpostview is None:
+        return
     if updated_postview.postSmallView:
-        if updated_postview.postSmallView.title and updated_postview.postSmallView.title != '':
-            currentpostview.postSmallView.title = updated_postview.postSmallView.title
-        currentpostview.postSmallView.description = updated_postview.postSmallView.description
-        currentpostview.postSmallView.featuredImageLink = updated_postview.postSmallView.featuredImageLink
-        currentpostview.postSmallView.type = updated_postview.postSmallView.type
+        if updated_postview.postSmallView.title is None or updated_postview.postSmallView.title == '':
+            updated_postview.postSmallView.title = currentpostview.postSmallView.title
+        currentpostview.postSmallView.CopyFrom(updated_postview.postSmallView)
     # content blocks
     if updated_postview.contentBlocks:
         del currentpostview.contentBlocks[:]
@@ -132,6 +131,7 @@ def update_profile(collection: pymongo.collection, handle: str, profile: other98
 
 
 LOG_GET_REQUEST = "\n**GET REQUEST**\n"
+LOG_POST_REQUEST = "\n**POST REQUEST**\n"
 
 
 def get_utc_time():
@@ -140,6 +140,12 @@ def get_utc_time():
 
 def log_get_request(description: str, request, context):
     log = str(get_utc_time()) + LOG_GET_REQUEST + description + '\nCONTEXT: ' + str(context) + '\nREQUEST \n' + str(request)
+    print(log)
+    return log
+
+
+def log_post_request(description: str, request, context):
+    log = str(get_utc_time()) + LOG_POST_REQUEST + description + '\nCONTEXT: ' + str(context) + '\nREQUEST \n' + str(request)
     print(log)
     return log
 
@@ -164,25 +170,39 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         return postview
     
     def GetFeed(self, request, context):
-        print('getFeed')
         request_log = log_get_request('get post feed', request, context)
         posttags = ['']
+        # collect request information
         for tag in request.postTags:
             posttags.append(tag)
         pageId = request.pageId
         pageSize = request.pageSize
+        # prepare objects for response
+        feed_response_view = other98_pb2.FeedResponseView()
+        post_feed_views = []
         cursor = get_post_feed(gRPCServer.postsCollection, postTags=posttags, pageId=pageId, pageSize=pageSize)
         try:
             obj = cursor.next()
             while obj:
                 try:
-                    log_result(util.parse_post_view(obj), request_log)
-                    yield util.parse_post_view(obj)
+                    postview = util.parse_post_view(obj)
+                    pfv = other98_pb2.PostFeedView()
+                    pfv.postViewId = str(obj['_id'])
+                    # pfv.postSmallView.__dict__.update(postview.postSmallView.__dict__)
+                    pfv.postSmallView.CopyFrom(postview.postSmallView)
+                    pfv.numberOfComments = len(postview.comments)
+                    pfv.dateOfLastComment = postview.comments[pfv.numberOfComments - 1].createDateMillis
+                    post_feed_views.append(pfv)
                     obj = cursor.next()
                 except StopIteration:
-                    return
+                    break
         except StopIteration:
-            return
+            obj = None
+        for post in post_feed_views:
+            feed_response_view.postFeedViews.extend([post])
+            feed_response_view.nextPageId = post.postViewId
+        log_result(result=feed_response_view, request_log=request_log)
+        return feed_response_view
 
     def GetProfile(self, request, context):
         request_log = log_get_request('get profile', request, context)
@@ -191,6 +211,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         return profile
 
     def CreatePost(self, request, context):
+        request_log = log_post_request('create post', context, request)
         viewable_roles = []
         for role in request.viewable_roles:
             viewable_roles.append(role)
@@ -201,10 +222,37 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         result = other98_pb2.Result()
         if result_id:
             result.statusCode = 0
+            log_result(result, request_log)
             yield result
         else:
             result.statusCode = 4
+            result.errorMessage = 'Post was not entered into database'
+            log_result(result, request_log)
             yield result
+
+    def CreateComment(self, request, context):
+        request_log = log_post_request('create comment', context, request)
+        result = other98_pb2.Result()
+        comment = request
+        if comment.postViewId is None or comment.postViewId == '':
+            result.statusCode = 3
+            result.errorMessage = 'Please attach a postview ID'
+            return result
+        # TODO: assign comment.authorHandle
+        comment.score = 0
+        comment.createDateMillis = util.current_milli_time()
+        postview = get_post_view(gRPCServer.postsCollection, comment.postViewId)
+        create_comment(gRPCServer.postsCollection, comment)
+        postview1 = get_post_view(gRPCServer.postsCollection, comment.postViewId)
+        if len(postview1.comments) > len(postview.comments):
+            result.statusCode = 0
+            log_result(result, request_log)
+            return result
+        else:
+            result.statusCode = 4
+            result.errorMessage = 'An error occurred while inserting the comment'
+            log_result(result, request_log)
+            return result
 
 
 def serve():

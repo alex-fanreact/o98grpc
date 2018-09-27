@@ -14,10 +14,10 @@ class TheOther98Stub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.GetFeed = channel.unary_stream(
+    self.GetFeed = channel.unary_unary(
         '/helloworld.TheOther98/GetFeed',
         request_serializer=other98__pb2.FeedRequest.SerializeToString,
-        response_deserializer=other98__pb2.PostFeedView.FromString,
+        response_deserializer=other98__pb2.FeedResponseView.FromString,
         )
     self.GetPost = channel.unary_unary(
         '/helloworld.TheOther98/GetPost',
@@ -83,10 +83,10 @@ class TheOther98Servicer(object):
 
 def add_TheOther98Servicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'GetFeed': grpc.unary_stream_rpc_method_handler(
+      'GetFeed': grpc.unary_unary_rpc_method_handler(
           servicer.GetFeed,
           request_deserializer=other98__pb2.FeedRequest.FromString,
-          response_serializer=other98__pb2.PostFeedView.SerializeToString,
+          response_serializer=other98__pb2.FeedResponseView.SerializeToString,
       ),
       'GetPost': grpc.unary_unary_rpc_method_handler(
           servicer.GetPost,
