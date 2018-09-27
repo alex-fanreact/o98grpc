@@ -7,7 +7,7 @@ import other98_pb2_grpc
 
 
 def get_profile(stub, handle: str):
-    return stub.GetProfile(other98_pb2.Handle(value=handle))
+    return stub.GetProfile(other98_pb2.GetRequest(value=handle))
 
 
 def get_feed(stub, postTags: [str], page_id:str='', page_size:int=20):
@@ -16,6 +16,10 @@ def get_feed(stub, postTags: [str], page_id:str='', page_size:int=20):
     request.pageId = page_id
     request.pageSize = page_size
     return stub.GetFeed(request)
+
+
+def populate_database(stub):
+    return stub.PopulateDatabase(other98_pb2.Void())
 
 
 def create_post(stub, postSmallView: other98_pb2.PostSmallView, contentBlocks: [other98_pb2.ContentBlock], postTags: [str], viewable_permissions: [str]=None):
@@ -37,6 +41,12 @@ def create_comment(stub, comment: other98_pb2.Comment):
         return stub.CreateComment(comment)
 
 
+def get_post(stub, idstring: str):
+    getRequest = other98_pb2.GetRequest()
+    getRequest.value = idstring
+    return stub.GetPost(getRequest)
+
+
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs
@@ -49,6 +59,7 @@ def run():
         print(get_feed(stub, ['forum']))
         print("-------------- GetFeed: News --------------")
         print(get_feed(stub, ['news']))
+        return stub
 
 
 if __name__ == '__main__':

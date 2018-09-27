@@ -7,27 +7,31 @@ option java_package = "io.grpc.examples.helloworld";
 option java_outer_classname = "HelloWorldProto";
 option objc_class_prefix = "HLW";
 
-// The greeting service definition.
+// TheOther98 service definition.
 service TheOther98 {
     rpc GetFeed (FeedRequest) returns (FeedResponseView) {}
-    rpc GetPost (Id) returns (PostView) {}
-    rpc GetProfile (Handle) returns (Profile) {}
+    rpc GetPost (GetRequest) returns (PostView) {}
+    rpc GetProfile (GetRequest) returns (ProfileResponseView) {}
     rpc CreatePost (CreatePostRequest) returns (Result) {}
     rpc CreateComment (Comment) returns (Result) {}
+    // demo methods
+    rpc PopulateDatabase(Void) returns (Void) {}
 }
 
-message Id {
+message Void {
+
+}
+
+message GetRequest {
     string value = 1;
+    string authToken = 2;
 }
 
 message FeedRequest {
     repeated string postTags = 1;
     string pageId = 2;
     int32 pageSize = 3;
-}
-
-message Handle {
-    string value = 1;
+    string authToken = 4;
 }
 
 message Result {
@@ -66,6 +70,7 @@ message PostView {
     repeated ContentBlock contentBlocks = 3;
     repeated string postTags = 4;
     repeated Comment comments = 5;
+    Result result = 6;
 }
 
 message PostFeedView {
@@ -78,6 +83,7 @@ message PostFeedView {
 message FeedResponseView {
     repeated PostFeedView postFeedViews = 1;
     string nextPageId = 2;
+    Result result = 3;
 }
 
 message CreatePostRequest {
@@ -95,6 +101,11 @@ message Profile {
   //string gender = 7;
   string type = 8;
   //string theme = 9;
+}
+
+message ProfileResponseView {
+    Profile profile = 1;
+    Result result = 2;
 }
 
 message ContentBlock {

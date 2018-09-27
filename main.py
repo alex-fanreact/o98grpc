@@ -6,7 +6,8 @@ import util
 import grpc
 
 import pymongo
-import copy
+import random
+import string
 from bson.objectid import ObjectId
 
 import other98_pb2 as other98_pb2
@@ -16,16 +17,31 @@ from google.protobuf.json_format import MessageToDict
 
 default_roles_viewable = ['user', 'anonymous']
 
+
 def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None) -> other98_pb2.PostView:
     if idstring and idstring != '' and idstring != "":
         raw = collection.find_one({'_id': ObjectId(idstring)})
         postview = util.parse_post_view(raw)
         postview.id = idstring
+        result = other98_pb2.Result()
+        if postview.postSmallView:
+            result.statusCode = 0
+            postview.result.CopyFrom(result)
+        else:
+            result.statusCode = 3
+            result.statusCode = 'Post view with id ' + idstring + ' not found'
+            postview.result.CopyFrom(result)
         return postview
     elif object_id:
         raw = collection.find_one({'_id': object_id})
         postview = util.parse_post_view(raw)
         postview.id = str(object_id)
+        postview.result = other98_pb2.Result()
+        if postview.postSmallView:
+            postview.result.statusCode = 0
+        else:
+            postview.result.statusCode = 3
+            postview.result.errorMessage = 'Post view with id ' + str(object_id) + ' not found'
         return postview
 
 
@@ -122,12 +138,20 @@ def update_comment(postview_collection: pymongo.collection, postview: other98_pb
                 break
 
 
+def create_profile(collection: pymongo.collection, profile: other98_pb2.Profile):
+    if profile.handle and profile.handle != '':
+        return collection.insert_one(util.parse_to_document(profile)).inserted_id
+    else:
+        return None
+
+
 def get_profile(collection: pymongo.collection, handle: str) -> other98_pb2.Profile:
     return util.parse_profile(collection.find_one({'handle': handle}))
 
 
 def update_profile(collection: pymongo.collection, handle: str, profile: other98_pb2.Profile):
     current_profile = get_profile(collection, handle)
+    # TODO: implement the rest
 
 
 LOG_GET_REQUEST = "\n**GET REQUEST**\n"
@@ -154,20 +178,34 @@ def log_result(result, request_log: str):
     print(str(get_utc_time()) + '\n**RETURN**\n' + str(result) + request_log)
 
 
+def random_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for x in range(size))
+
+
 class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
+    database_name = 'theOther98Test'
+    profiles_collection_name = 'profiles'
+    posts_collection_name = 'posts'
+
     serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
-    theOther98Db = serverInstance["theOther98Test"]
-    profilesCollection = theOther98Db["profiles"]
-    postsCollection = theOther98Db["posts"]
+    theOther98Db = serverInstance[database_name]
+    profilesCollection = theOther98Db[profiles_collection_name]
+    postsCollection = theOther98Db[posts_collection_name]
 
     def __init__(self):
+        # create indexes
+        gRPCServer.profilesCollection.create_index([('handle', pymongo.TEXT)], name='handle_index', unique=True)
+        # gRPCServer.postsCollection.create_index(['postTags'])
         print('init')
 
     def GetPost(self, request, context):
         request_log = log_get_request('get post request', request, context)
         postview = get_post_view(gRPCServer.postsCollection, request.value)
         log_result(postview, request_log)
-        return postview
+        if postview:
+            return postview
+        else:
+            return
     
     def GetFeed(self, request, context):
         request_log = log_get_request('get post feed', request, context)
@@ -191,7 +229,10 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
                     # pfv.postSmallView.__dict__.update(postview.postSmallView.__dict__)
                     pfv.postSmallView.CopyFrom(postview.postSmallView)
                     pfv.numberOfComments = len(postview.comments)
-                    pfv.dateOfLastComment = postview.comments[pfv.numberOfComments - 1].createDateMillis
+                    if pfv.numberOfComments > 0:
+                        pfv.dateOfLastComment = postview.comments[pfv.numberOfComments - 1].createDateMillis
+                    else:
+                        pfv.dateOfLastComment = -1
                     post_feed_views.append(pfv)
                     obj = cursor.next()
                 except StopIteration:
@@ -208,7 +249,18 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         request_log = log_get_request('get profile', request, context)
         profile = get_profile(gRPCServer.profilesCollection, request.value)
         log_result(profile, request_log)
-        return profile
+        profileresponseview = other98_pb2.ProfileResponseView()
+        profileresponseview.profile = profile
+        result = other98_pb2.Result()
+        if profile:
+            result.statusCode = 0
+            profileresponseview.result.CopyFrom(result)
+            return profileresponseview
+        else:
+            result.statusCode = 3
+            result.errorMessage = 'Post with ID: ' + request.value + ' not found'
+            profileresponseview.result.CopyFrom(result)
+            return profileresponseview
 
     def CreatePost(self, request, context):
         request_log = log_post_request('create post', context, request)
@@ -253,6 +305,84 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
             result.errorMessage = 'An error occurred while inserting the comment'
             log_result(result, request_log)
             return result
+
+    def PopulateDatabase(self, request, context):
+        gRPCServer.serverInstance.drop_database(name_or_database=gRPCServer.database_name)
+        gRPCServer.theOther98Db = gRPCServer.serverInstance[gRPCServer.database_name]
+        gRPCServer.profilesCollection = gRPCServer.theOther98Db[gRPCServer.profiles_collection_name]
+        gRPCServer.postsCollection = gRPCServer.theOther98Db[gRPCServer.posts_collection_name]
+        created_profiles = []
+        for x in range(100):
+            try:
+                profile = other98_pb2.Profile()
+                value = random_generator(8)
+                profile.handle = value
+                profile.email = value + '@' + value + '.com'
+                profile.type = value
+                create_profile(gRPCServer.profilesCollection, profile)
+                if x % 20 == 0:
+                    created_profiles.append(profile)
+            except:
+                continue
+        for x in range(100000):
+            try:
+                post = other98_pb2.Post()
+                value = random_generator(10)
+                try:
+                    author = created_profiles[x % 5]
+                except:
+                    author = None
+                if author:
+                    postsmallview = other98_pb2.PostSmallView()
+                    postsmallview.title = value
+                    postsmallview.description = value
+                    postsmallview.type = value
+                    postsmallview.authorHandle = author.handle
+                    post.postSmallView.CopyFrom(postsmallview)
+
+                    contentBlock = other98_pb2.ContentBlock()
+                    contentBlock.content = value
+                    contentBlock.type = x % 5
+                    post.contentBlocks.extend([contentBlock])
+
+                    posttags = []
+                    roles_viewable = []
+                    if x % 3 == 0:
+                        posttags.append('news')
+                        roles_viewable = ['user']
+                    elif x % 3 == 1:
+                        posttags.append('forum')
+                        roles_viewable = default_roles_viewable
+                    elif x % 3 == 2:
+                        posttags.extend(['news', 'forum'])
+                        roles_viewable = default_roles_viewable
+                    else:
+                        posttags.append(['huh?'])
+
+                    post.postTags.extend(posttags)
+
+                    if post:
+                        id = create_post(gRPCServer.postsCollection, post, roles_viewable)
+
+                        # now insert comments
+                        if id:
+                            commentvalue = random_generator(19)
+                            comment = other98_pb2.Comment()
+                            comment.postViewId = str(id)
+                            comment.text = commentvalue
+                            comment.contentBlocks.extend([])
+                            for num in range(x % 3):
+                                print(str(num))
+                                try:
+                                    create_comment(gRPCServer.postsCollection, comment)
+                                    print('created comment ' + str(num))
+                                except:
+                                    continue
+                else:
+                    continue
+            except:
+                continue
+        return other98_pb2.Void()
 
 
 def serve():
