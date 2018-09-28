@@ -15,13 +15,15 @@ import other98_pb2_grpc as other98_pb2_grpc
 from google.protobuf.json_format import MessageToJson
 from google.protobuf.json_format import MessageToDict
 
-default_roles_viewable = ['user', 'anonymous']
+role_user = 'user'
+role_anonymous = 'anonymous'
+property_name_roles = 'roles'
+default_roles_viewable = [role_user, role_anonymous]
 
 
 def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None, userHandle: str='') -> other98_pb2.PostView:
     if idstring and idstring != '' and idstring != "":
         raw = collection.find_one({'_id': ObjectId(idstring)})
-        print(str(raw))
         postview = util.parse_post_view(raw)
         postview.id = idstring
         result = other98_pb2.Result()
@@ -59,17 +61,24 @@ def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pa
     try:
         objectId = ObjectId(pageId)
         cursor = collection.find({'$and': [{'postTags': {'$in': postTags}},
-                                         {'_id': {'$gt': objectId}}]}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
+                                           {'_id': {'$gt': objectId}}]}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
+        if userHandle is None or userHandle == '':
+            cursor = collection.find({'$and': [{'postTags': {'$in': postTags}},
+                                               {property_name_roles: {'$in': [role_anonymous]}},
+                                               {'_id': {'$gt': objectId}}]}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
     except:
         cursor = collection.find({'postTags': {'$in': postTags}}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
+        if userHandle is None or userHandle == '':
+            cursor = collection.find({'$and': [{'postTags': {'$in': postTags}},
+                                               {property_name_roles: {'$in': [role_anonymous]}}]}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
     try:
         obj = cursor.next()
         while obj:
             try:
                 postview = util.parse_post_view(obj)
+                print(str(postview.postTags))
                 pfv = other98_pb2.PostFeedView()
                 pfv.postViewId = str(obj['_id'])
-                # pfv.postSmallView.__dict__.update(postview.postSmallView.__dict__)
                 pfv.postSmallView.CopyFrom(postview.postSmallView)
                 pfv.numberOfComments = len(postview.comments)
                 if pfv.numberOfComments > 0:
@@ -90,7 +99,7 @@ def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pa
 
 
 def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_viewable: [str]):
-    if post.postSmallView.title is None or post.postSmallView.title == '':
+    if post.postSmallView.title is None or post.postSmallView.title == '' or post.postSmallView.authorHandle == '':
         # TODO: inform user
         return None
     postView = other98_pb2.PostView()
@@ -101,7 +110,7 @@ def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_vi
     postView.contentBlocks.extend(post.contentBlocks)
     postView.comments.extend([])
     dictionary = util.parse_to_document(postView)
-    dictionary["roles"] = roles_viewable
+    dictionary[property_name_roles] = roles_viewable
     return collection.insert_one(dictionary).inserted_id
 
 
@@ -130,15 +139,15 @@ def update_post(postview_collection: pymongo, updated_postview: other98_pb2.Post
         currentpostview.postVotes.extend(updated_postview.postVotes)
     dictionary = util.parse_to_document(currentpostview)
     if updated_roles_viewable:
-        dictionary["roles"] = updated_roles_viewable
+        dictionary[property_name_roles] = updated_roles_viewable
     else:
         if raw_post:
             try:
-                dictionary["roles"] = raw_post["roles"]
+                dictionary[property_name_roles] = raw_post[property_name_roles]
             except:
-                dictionary["roles"] = default_roles_viewable
+                dictionary[property_name_roles] = default_roles_viewable
         else:
-            dictionary["roles"] = default_roles_viewable
+            dictionary[property_name_roles] = default_roles_viewable
     postview_collection.replace_one({'_id': ObjectId(updated_postview.id)}, dictionary)
 
 
@@ -467,7 +476,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
                     roles_viewable = []
                     if x % 3 == 0:
                         posttags.append('news')
-                        roles_viewable = ['user']
+                        roles_viewable = [role_user]
                     elif x % 3 == 1:
                         posttags.append('forum')
                         roles_viewable = default_roles_viewable

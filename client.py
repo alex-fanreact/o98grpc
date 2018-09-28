@@ -10,11 +10,12 @@ def get_profile(stub, handle: str):
     return stub.GetProfile(other98_pb2.GetRequest(value=handle))
 
 
-def get_feed(stub, postTags: [str], page_id:str='', page_size:int=20):
+def get_feed(stub, postTags: [str], page_id:str='', page_size:int=20, handle: str=''):
     request = other98_pb2.FeedRequest()
     request.postTags.extend(postTags)
     request.pageId = page_id
     request.pageSize = page_size
+    request.authToken = handle
     return stub.GetFeed(request)
 
 
