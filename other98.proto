@@ -74,7 +74,8 @@ message PostView {
     repeated Comment comments = 5;
     int32 score = 6;
     int32 userVote = 7;
-    Result result = 8;
+    repeated PostVote postVotes = 8;
+    Result result = 9;
 }
 
 message PostFeedView {
@@ -137,6 +138,7 @@ message Comment {
     //repeated ContentBlock contentBlocks = 5;
     string text = 5;
     int64 score = 6;
+    repeated CommentVote commentVotes = 7;
 }
 
 message CommentView {
