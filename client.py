@@ -47,6 +47,13 @@ def get_post(stub, idstring: str):
     return stub.GetPost(getRequest)
 
 
+def vote_on_post(stub, user_handle: str, postview_id_string: str, vote_value: int):
+    postvote = other98_pb2.PostVote()
+    postvote.postViewId = postview_id_string
+    postvote.userHandle = user_handle
+    postvote.voteValue = vote_value
+    return stub.VoteOnPost(postvote)
+
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs

@@ -18,9 +18,10 @@ from google.protobuf.json_format import MessageToDict
 default_roles_viewable = ['user', 'anonymous']
 
 
-def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None) -> other98_pb2.PostView:
+def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None, postvotecollection: pymongo.collection=None) -> other98_pb2.PostView:
     if idstring and idstring != '' and idstring != "":
         raw = collection.find_one({'_id': ObjectId(idstring)})
+        print(str(raw))
         postview = util.parse_post_view(raw)
         postview.id = idstring
         result = other98_pb2.Result()
@@ -31,6 +32,9 @@ def get_post_view(collection: pymongo.collection, idstring: str = '', object_id:
             result.statusCode = 3
             result.statusCode = 'Post view with id ' + idstring + ' not found'
             postview.result.CopyFrom(result)
+        if postvotecollection:
+            votevalue = get_total_post_votes(postvotecollection, idstring)
+            postview.score = votevalue
         return postview
     elif object_id:
         raw = collection.find_one({'_id': object_id})
@@ -42,6 +46,9 @@ def get_post_view(collection: pymongo.collection, idstring: str = '', object_id:
         else:
             postview.result.statusCode = 3
             postview.result.errorMessage = 'Post view with id ' + str(object_id) + ' not found'
+        if postvotecollection:
+            votevalue = get_total_post_votes(postvotecollection, str(object_id))
+            postview.score = votevalue
         return postview
 
 
@@ -72,7 +79,7 @@ def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_vi
 
 def update_post(postview_collection: pymongo, updated_postview: other98_pb2.PostView, allow_update_comments=False, updated_roles_viewable: [str] = None):
     try:
-        raw_post = postview_collection.find_one({'_id': updated_postview.id})
+        raw_post = postview_collection.find_one({'_id': ObjectId(updated_postview.id)})
     except:
         raw_post = None
     currentpostview = get_post_view(postview_collection, updated_postview.id)
@@ -105,16 +112,16 @@ def update_post(postview_collection: pymongo, updated_postview: other98_pb2.Post
 
 
 def create_comment(collection: pymongo.collection, comment: other98_pb2.Comment):
-    if comment.postViewId:
+    if comment.postViewId and comment.postViewId != '':
         postview = get_post_view(collection, comment.postViewId)
-        i = 0
-        for com in postview.comments:
-            i += 1
-        comment.id = i
-        comment.score = 0
-        comment.createDateMillis = util.current_milli_time()
-        postview.comments.extend([comment])
-        update_post(collection, postview, True)
+        if postview:
+            i = len(postview.comments)
+            # always non zero
+            comment.id = i + 1
+            comment.score = 0
+            comment.createDateMillis = util.current_milli_time()
+            postview.comments.extend([comment])
+            update_post(collection, postview, True)
     else:
         return
 
@@ -154,6 +161,44 @@ def update_profile(collection: pymongo.collection, handle: str, profile: other98
     # TODO: implement the rest
 
 
+def get_total_post_votes(post_vote_collection: pymongo.collection, postview_id: str) -> int:
+    cursor = post_vote_collection.find({'postViewId': {'$eq': postview_id}})
+    try:
+        total_votes = 0
+        obj = cursor.next()
+        while obj:
+            try:
+                vote = util.parse_post_vote(obj)
+                total_votes += vote.voteValue
+                obj = cursor.next()
+            except StopIteration:
+                break
+        return total_votes
+    except StopIteration:
+        return 0
+
+
+def vote_on_post(collection: pymongo.collection, post_vote: other98_pb2.PostVote):
+    if post_vote and post_vote.postViewId != '' and post_vote.userHandle != '':
+        current_vote = collection.find_one({'$and': [{'postViewId': {'$eq': post_vote.postViewId}},
+                                                     {'userHandle': {'$eq': post_vote.userHandle}}]})
+        if current_vote:
+            return collection.replace_one({'_id': current_vote['_id']}, util.parse_to_document(post_vote)).modified_count == 1
+        else:
+            return collection.insert_one(util.parse_to_document(post_vote)).inserted_id != None
+
+
+def vote_on_comment(collection: pymongo.collection, comment_vote: other98_pb2.CommentVote):
+    if comment_vote and comment_vote.postViewId != '' and comment_vote.userHandle != '':
+        current_vote = collection.find_one({'$and': [{'postViewId': {'$eq': comment_vote.postViewId}},
+                                                     {'userHandle': {'$eq': comment_vote.userHandle}},
+                                                     {'commentId': {'$eq': comment_vote.commentId}}]})
+        if current_vote:
+            return collection.replace_one({'_id': current_vote['_id']}, util.parse_to_document(comment_vote)).modified_count == 1
+        else:
+            return collection.insert_one(util.parse_to_document(comment_vote)).inserted_id != None
+
+
 LOG_GET_REQUEST = "\n**GET REQUEST**\n"
 LOG_POST_REQUEST = "\n**POST REQUEST**\n"
 
@@ -186,11 +231,15 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
     database_name = 'theOther98Test'
     profiles_collection_name = 'profiles'
     posts_collection_name = 'posts'
+    vote_collection_name_posts = 'votes_posts'
+    vote_collection_name_comments = 'votes_comments'
 
     serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
     theOther98Db = serverInstance[database_name]
     profilesCollection = theOther98Db[profiles_collection_name]
     postsCollection = theOther98Db[posts_collection_name]
+    postVoteCollection = theOther98Db[vote_collection_name_posts]
+    commentVoteCollection = theOther98Db[vote_collection_name_comments]
 
     def __init__(self):
         # create indexes
@@ -200,7 +249,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
 
     def GetPost(self, request, context):
         request_log = log_get_request('get post request', request, context)
-        postview = get_post_view(gRPCServer.postsCollection, request.value)
+        postview = get_post_view(gRPCServer.postsCollection, idstring=request.value, postvotecollection=gRPCServer.postVoteCollection)
         log_result(postview, request_log)
         if postview:
             return postview
@@ -219,7 +268,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         feed_response_view = other98_pb2.FeedResponseView()
         post_feed_views = []
     
-        print(f"pageSize={pageSize}")
+        print("pageSize={pageSize}")
         if pageSize == 0: 
             pageSize = 20
             print("setting page size to 20")
@@ -312,11 +361,53 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
             log_result(result, request_log)
             return result
 
+    def VoteOnPost(self, request, context):
+        request_log = log_post_request('vote on post', request, context)
+        result = other98_pb2.Result()
+        if request.postViewId == '' or request.userHandle == '':
+            result.statusCode = 3
+            result.errorMessage = 'Please attach postViewId and userHandle to request'
+            log_result(result, request_log)
+            return result
+        else:
+            operation_success = vote_on_post(gRPCServer.postVoteCollection, request)
+            if operation_success:
+                result.statusCode = 0
+                log_result(result, request_log)
+                return result
+            else:
+                result.statusCode = 4
+                result.errorMessage = 'The write operation was unsuccessful, please try again'
+                log_result(result, request_log)
+                return result
+
+    def VoteOnComment(self, request, context):
+        request_log = log_post_request('vote on post', request, context)
+        result = other98_pb2.Result()
+        if request.postViewId == '' or request.userHandle == '' or request.commentId == 0:
+            result.statusCode = 3
+            result.errorMessage = 'Please attach postViewId, userHandle and commentId to request'
+            log_result(result, request_log)
+            return result
+        else:
+            operation_success = vote_on_comment(gRPCServer.postVoteCollection, request)
+            if operation_success:
+                result.statusCode = 0
+                log_result(result, request_log)
+                return result
+            else:
+                result.statusCode = 4
+                result.errorMessage = 'The write operation was unsuccessful, please try again'
+                log_result(result, request_log)
+                return result
+
     def PopulateDatabase(self, request, context):
         gRPCServer.serverInstance.drop_database(name_or_database=gRPCServer.database_name)
         gRPCServer.theOther98Db = gRPCServer.serverInstance[gRPCServer.database_name]
         gRPCServer.profilesCollection = gRPCServer.theOther98Db[gRPCServer.profiles_collection_name]
         gRPCServer.postsCollection = gRPCServer.theOther98Db[gRPCServer.posts_collection_name]
+        gRPCServer.postVoteCollection = gRPCServer.theOther98Db[gRPCServer.vote_collection_name_posts]
+        gRPCServer.commentVoteCollection = gRPCServer.theOther98Db[gRPCServer.vote_collection_name_comments]
         created_profiles = []
         for x in range(100):
             try:

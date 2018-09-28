@@ -14,6 +14,8 @@ service TheOther98 {
     rpc GetProfile (GetRequest) returns (ProfileResponseView) {}
     rpc CreatePost (CreatePostRequest) returns (Result) {}
     rpc CreateComment (Comment) returns (Result) {}
+    rpc VoteOnPost(PostVote) returns (Result) {}
+    rpc VoteOnComment(CommentVote) returns (Result) {}
     // demo methods
     rpc PopulateDatabase(Void) returns (Void) {}
 }
@@ -70,7 +72,9 @@ message PostView {
     repeated ContentBlock contentBlocks = 3;
     repeated string postTags = 4;
     repeated Comment comments = 5;
-    Result result = 6;
+    int32 score = 6;
+    int32 userVote = 7;
+    Result result = 8;
 }
 
 message PostFeedView {
@@ -136,4 +140,17 @@ message Comment {
 message CommentView {
     Comment comment = 1;
     int32 userVote = 3;
+}
+
+message PostVote {
+    string postViewId = 1;
+    string userHandle = 2;
+    int32 voteValue = 3;
+}
+
+message CommentVote {
+    string postViewId = 1;
+    int64 commentId = 2;
+    string userHandle = 3;
+    int32 voteValue = 4;
 }

@@ -39,6 +39,16 @@ class TheOther98Stub(object):
         request_serializer=other98__pb2.Comment.SerializeToString,
         response_deserializer=other98__pb2.Result.FromString,
         )
+    self.VoteOnPost = channel.unary_unary(
+        '/com.fanreact.other98.TheOther98/VoteOnPost',
+        request_serializer=other98__pb2.PostVote.SerializeToString,
+        response_deserializer=other98__pb2.Result.FromString,
+        )
+    self.VoteOnComment = channel.unary_unary(
+        '/com.fanreact.other98.TheOther98/VoteOnComment',
+        request_serializer=other98__pb2.CommentVote.SerializeToString,
+        response_deserializer=other98__pb2.Result.FromString,
+        )
     self.PopulateDatabase = channel.unary_unary(
         '/com.fanreact.other98.TheOther98/PopulateDatabase',
         request_serializer=other98__pb2.Void.SerializeToString,
@@ -85,6 +95,20 @@ class TheOther98Servicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def VoteOnPost(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def VoteOnComment(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def PopulateDatabase(self, request, context):
     """demo methods
     """
@@ -118,6 +142,16 @@ def add_TheOther98Servicer_to_server(servicer, server):
       'CreateComment': grpc.unary_unary_rpc_method_handler(
           servicer.CreateComment,
           request_deserializer=other98__pb2.Comment.FromString,
+          response_serializer=other98__pb2.Result.SerializeToString,
+      ),
+      'VoteOnPost': grpc.unary_unary_rpc_method_handler(
+          servicer.VoteOnPost,
+          request_deserializer=other98__pb2.PostVote.FromString,
+          response_serializer=other98__pb2.Result.SerializeToString,
+      ),
+      'VoteOnComment': grpc.unary_unary_rpc_method_handler(
+          servicer.VoteOnComment,
+          request_deserializer=other98__pb2.CommentVote.FromString,
           response_serializer=other98__pb2.Result.SerializeToString,
       ),
       'PopulateDatabase': grpc.unary_unary_rpc_method_handler(
