@@ -22,11 +22,19 @@ default_roles_viewable = [role_user, role_anonymous]
 
 
 def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None, userHandle: str='') -> other98_pb2.PostView:
+    result = other98_pb2.Result()
     if idstring and idstring != '' and idstring != "":
         raw = collection.find_one({'_id': ObjectId(idstring)})
+        if userHandle is None or userHandle == '':
+            raw = collection.find_one({'$and': [{'_id': ObjectId(idstring)},
+                                                {property_name_roles: {'$in': [role_anonymous]}}]})
+            if raw is None:
+                postview = other98_pb2.PostView()
+                result.statusCode = 1
+                result.errorMessage = 'You are not allowed to view that post'
+                return postview
         postview = util.parse_post_view(raw)
         postview.id = idstring
-        result = other98_pb2.Result()
         if postview.postSmallView:
             result.statusCode = 0
             postview.result.CopyFrom(result)
@@ -41,14 +49,25 @@ def get_post_view(collection: pymongo.collection, idstring: str = '', object_id:
         return postview
     elif object_id:
         raw = collection.find_one({'_id': object_id})
+        if userHandle is None or userHandle == '':
+            raw = collection.find_one({'$and': [{'_id': object_id},
+                                                {property_name_roles: {'$in': [role_anonymous]}}]})
+            if raw is None:
+                postview = other98_pb2.PostView()
+                result.statusCode = 1
+                result.errorMessage = 'You are not allowed to view that post'
+                postview.result.CopyFrom(result)
+                return postview
         postview = util.parse_post_view(raw)
         postview.id = str(object_id)
         postview.result = other98_pb2.Result()
         if postview.postSmallView:
-            postview.result.statusCode = 0
+            result.statusCode = 0
+            postview.result.CopyFrom(result)
         else:
-            postview.result.statusCode = 3
-            postview.result.errorMessage = 'Post view with id ' + str(object_id) + ' not found'
+            result.statusCode = 3
+            result.errorMessage = 'Post view with id ' + str(object_id) + ' not found'
+            postview.result.CopyFrom(result)
         postview.score = len(postview.postVotes)
         for vote in postview.postVotes:
             if vote.userHandle == userHandle:
