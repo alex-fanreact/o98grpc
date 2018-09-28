@@ -8,3 +8,5 @@ __pycache__/util.cpython-37.pyc
 .idea/inspectionProfiles/Project_Default.xml
 __pycache__/client.cpython-37.pyc
 testenv
+js/dist
+js/node_modules
