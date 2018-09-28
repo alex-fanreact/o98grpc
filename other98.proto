@@ -82,6 +82,8 @@ message PostFeedView {
     PostSmallView postSmallView = 2;
     int64 numberOfComments = 3;
     int64 dateOfLastComment = 4;
+    int32 score = 5;
+    int32 userVote = 6;
 }
 
 message FeedResponseView {

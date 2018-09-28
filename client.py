@@ -41,9 +41,10 @@ def create_comment(stub, comment: other98_pb2.Comment):
         return stub.CreateComment(comment)
 
 
-def get_post(stub, idstring: str):
+def get_post(stub, idstring: str, userhandle: str):
     getRequest = other98_pb2.GetRequest()
     getRequest.value = idstring
+    getRequest.authToken = userhandle
     return stub.GetPost(getRequest)
 
 

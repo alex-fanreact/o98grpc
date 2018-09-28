@@ -18,7 +18,7 @@ from google.protobuf.json_format import MessageToDict
 default_roles_viewable = ['user', 'anonymous']
 
 
-def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None, postvotecollection: pymongo.collection=None) -> other98_pb2.PostView:
+def get_post_view(collection: pymongo.collection, idstring: str = '', object_id: ObjectId = None, postvotecollection: pymongo.collection=None, userHandle: str='') -> other98_pb2.PostView:
     if idstring and idstring != '' and idstring != "":
         raw = collection.find_one({'_id': ObjectId(idstring)})
         print(str(raw))
@@ -33,8 +33,9 @@ def get_post_view(collection: pymongo.collection, idstring: str = '', object_id:
             result.statusCode = 'Post view with id ' + idstring + ' not found'
             postview.result.CopyFrom(result)
         if postvotecollection:
-            votevalue = get_total_post_votes(postvotecollection, idstring)
-            postview.score = votevalue
+            votevalue = get_post_votes(postvotecollection, idstring, userHandle)
+            postview.score = votevalue[0]
+            postview.userVote = votevalue[1]
         return postview
     elif object_id:
         raw = collection.find_one({'_id': object_id})
@@ -47,24 +48,51 @@ def get_post_view(collection: pymongo.collection, idstring: str = '', object_id:
             postview.result.statusCode = 3
             postview.result.errorMessage = 'Post view with id ' + str(object_id) + ' not found'
         if postvotecollection:
-            votevalue = get_total_post_votes(postvotecollection, str(object_id))
-            postview.score = votevalue
+            votevalue = get_post_votes(postvotecollection, str(object_id), userHandle)
+            postview.score = votevalue[0]
+            postview.userVote = votevalue[1]
         return postview
 
 
-def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pageSize:int=20):
+def get_post_feed(collection: pymongo.collection, postTags: [str], pageId='', pageSize:int=20, postvotecollection: pymongo.collection = None, userHandle: str=''):
+    post_feed_views = []
     try:
         objectId = ObjectId(pageId)
-        return collection.find({'$and': [{'postTags': {'$in': postTags}},
+        cursor = collection.find({'$and': [{'postTags': {'$in': postTags}},
                                          {'_id': {'$gt': objectId}}]}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
     except:
-        return collection.find({'postTags': {'$in': postTags}}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
+        cursor = collection.find({'postTags': {'$in': postTags}}).sort([('createDate', pymongo.ASCENDING)]).limit(pageSize)
+    try:
+        obj = cursor.next()
+        while obj:
+            try:
+                postview = util.parse_post_view(obj)
+                pfv = other98_pb2.PostFeedView()
+                pfv.postViewId = str(obj['_id'])
+                # pfv.postSmallView.__dict__.update(postview.postSmallView.__dict__)
+                pfv.postSmallView.CopyFrom(postview.postSmallView)
+                pfv.numberOfComments = len(postview.comments)
+                if pfv.numberOfComments > 0:
+                    pfv.dateOfLastComment = postview.comments[pfv.numberOfComments - 1].createDateMillis
+                else:
+                    pfv.dateOfLastComment = -1
+                if postvotecollection:
+                    votevalue = get_post_votes(postvotecollection, pfv.postViewId, userHandle)
+                    pfv.score = votevalue[0]
+                    pfv.userVote = votevalue[1]
+                post_feed_views.append(pfv)
+                obj = cursor.next()
+            except StopIteration:
+                break
+    except StopIteration:
+        obj = None
+    return post_feed_views
 
 
 def create_post(collection: pymongo.collection, post: other98_pb2.Post, roles_viewable: [str]):
     if post.postSmallView.title is None or post.postSmallView.title == '':
         # TODO: inform user
-        return
+        return None
     postView = other98_pb2.PostView()
     postView.postSmallView.CopyFrom(post.postSmallView)
     postView.postSmallView.createDate = util.current_milli_time()
@@ -161,21 +189,24 @@ def update_profile(collection: pymongo.collection, handle: str, profile: other98
     # TODO: implement the rest
 
 
-def get_total_post_votes(post_vote_collection: pymongo.collection, postview_id: str) -> int:
+def get_post_votes(post_vote_collection: pymongo.collection, postview_id: str, userhandle: str):
     cursor = post_vote_collection.find({'postViewId': {'$eq': postview_id}})
     try:
         total_votes = 0
+        user_vote = 0
         obj = cursor.next()
         while obj:
             try:
                 vote = util.parse_post_vote(obj)
                 total_votes += vote.voteValue
+                if vote.userHandle == userhandle:
+                    user_vote += vote.voteValue
                 obj = cursor.next()
             except StopIteration:
                 break
-        return total_votes
+        return total_votes, user_vote
     except StopIteration:
-        return 0
+        return 0, 0
 
 
 def vote_on_post(collection: pymongo.collection, post_vote: other98_pb2.PostVote):
@@ -249,7 +280,8 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
 
     def GetPost(self, request, context):
         request_log = log_get_request('get post request', request, context)
-        postview = get_post_view(gRPCServer.postsCollection, idstring=request.value, postvotecollection=gRPCServer.postVoteCollection)
+        postview = get_post_view(gRPCServer.postsCollection, idstring=request.value,
+                                 postvotecollection=gRPCServer.postVoteCollection, userHandle=request.authToken)
         log_result(postview, request_log)
         if postview:
             return postview
@@ -272,28 +304,9 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         if pageSize == 0: 
             pageSize = 20
             print("setting page size to 20")
-         
-        cursor = get_post_feed(gRPCServer.postsCollection, postTags=posttags, pageId=pageId, pageSize=pageSize)
-        try:
-            obj = cursor.next()
-            while obj:
-                try:
-                    postview = util.parse_post_view(obj)
-                    pfv = other98_pb2.PostFeedView()
-                    pfv.postViewId = str(obj['_id'])
-                    # pfv.postSmallView.__dict__.update(postview.postSmallView.__dict__)
-                    pfv.postSmallView.CopyFrom(postview.postSmallView)
-                    pfv.numberOfComments = len(postview.comments)
-                    if pfv.numberOfComments > 0:
-                        pfv.dateOfLastComment = postview.comments[pfv.numberOfComments - 1].createDateMillis
-                    else:
-                        pfv.dateOfLastComment = -1
-                    post_feed_views.append(pfv)
-                    obj = cursor.next()
-                except StopIteration:
-                    break
-        except StopIteration:
-            obj = None
+
+        post_feed_views = get_post_feed(gRPCServer.postsCollection, postTags=posttags, pageId=pageId, pageSize=pageSize,
+                                        postvotecollection=gRPCServer.postVoteCollection, userHandle=request.authToken)
         for post in post_feed_views:
             feed_response_view.postFeedViews.extend([post])
             feed_response_view.nextPageId = post.postViewId
@@ -461,8 +474,16 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
                     if post:
                         id = create_post(gRPCServer.postsCollection, post, roles_viewable)
 
-                        # now insert comments
                         if id:
+                            # generate postvotes for feed testing
+                            postVote = other98_pb2.PostVote()
+                            postVote.userHandle = author.handle
+                            postVote.postViewId = str(id)
+                            postVote.voteValue = 1
+                            vote_on_post(gRPCServer.postVoteCollection, postVote)
+
+                        if id:
+                            # now insert comments
                             commentvalue = random_generator(19)
                             comment = other98_pb2.Comment()
                             comment.postViewId = str(id)
