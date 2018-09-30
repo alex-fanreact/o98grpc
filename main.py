@@ -380,13 +380,14 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         result = other98_pb2.Result()
         if result_id:
             result.statusCode = 0
+            result.createdId = str(result_id)
             log_result(result, request_log)
-            yield result
+            return result
         else:
             result.statusCode = 4
             result.errorMessage = 'Post was not entered into database'
             log_result(result, request_log)
-            yield result
+            return result
 
     def CreateComment(self, request, context):
         request_log = log_post_request('create comment', context, request)

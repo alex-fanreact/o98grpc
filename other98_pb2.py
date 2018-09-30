@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='other98',
   syntax='proto3',
   serialized_options=_b('\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'),
-  serialized_pb=_b('\n\rother98.proto\x12\x07other98\"\x06\n\x04Void\".\n\nGetRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"T\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\x12\x11\n\tauthToken\x18\x04 \x01(\t\"\xa8\x01\n\x06Result\x12.\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1a.other98.Result.StatusCode\x12\x14\n\x0c\x65rrorMessage\x18\x02 \x01(\t\"X\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x10\n\x0cUNAUTHORIZED\x10\x01\x12\r\n\tFORBIDDEN\x10\x02\x12\r\n\tNOT_FOUND\x10\x03\x12\x12\n\x0eINTERNAL_ERROR\x10\x04\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"u\n\x04Post\x12-\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\x91\x02\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12\"\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x10.other98.Comment\x12\r\n\x05score\x18\x06 \x01(\x05\x12\x10\n\x08userVote\x18\x07 \x01(\x05\x12$\n\tpostVotes\x18\x08 \x03(\x0b\x32\x11.other98.PostVote\x12\x1f\n\x06result\x18\t \x01(\x0b\x32\x0f.other98.Result\"\xa7\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\x12\r\n\x05score\x18\x05 \x01(\x05\x12\x10\n\x08userVote\x18\x06 \x01(\x05\"u\n\x10\x46\x65\x65\x64ResponseView\x12,\n\rpostFeedViews\x18\x01 \x03(\x0b\x32\x15.other98.PostFeedView\x12\x12\n\nnextPageId\x18\x02 \x01(\t\x12\x1f\n\x06result\x18\x03 \x01(\x0b\x32\x0f.other98.Result\"H\n\x11\x43reatePostRequest\x12\x1b\n\x04post\x18\x01 \x01(\x0b\x32\r.other98.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"Y\n\x13ProfileResponseView\x12!\n\x07profile\x18\x01 \x01(\x0b\x32\x10.other98.Profile\x12\x1f\n\x06result\x18\x02 \x01(\x0b\x32\x0f.other98.Result\"\xd9\x01\n\x0c\x43ontentBlock\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32&.other98.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\'\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\"Y\n\x10\x43ontentBlockType\x12\x08\n\x04Text\x10\x00\x12\t\n\x05Image\x10\x01\x12\x10\n\x0cImageGallery\x10\x02\x12\x08\n\x04Link\x10\x03\x12\t\n\x05Video\x10\x04\x12\t\n\x05Quote\x10\x05\"\xa2\x01\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\x12*\n\x0c\x63ommentVotes\x18\x07 \x03(\x0b\x32\x14.other98.CommentVote\"B\n\x0b\x43ommentView\x12!\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x10.other98.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\"E\n\x08PostVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x12\n\nuserHandle\x18\x02 \x01(\t\x12\x11\n\tvoteValue\x18\x03 \x01(\x05\"[\n\x0b\x43ommentVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x11\n\tcommentId\x18\x02 \x01(\x03\x12\x12\n\nuserHandle\x18\x03 \x01(\t\x12\x11\n\tvoteValue\x18\x04 \x01(\x05\x32\xd7\x03\n\nTheOther98\x12<\n\x07GetFeed\x12\x14.other98.FeedRequest\x1a\x19.other98.FeedResponseView\"\x00\x12\x33\n\x07GetPost\x12\x13.other98.GetRequest\x1a\x11.other98.PostView\"\x00\x12\x41\n\nGetProfile\x12\x13.other98.GetRequest\x1a\x1c.other98.ProfileResponseView\"\x00\x12;\n\nCreatePost\x12\x1a.other98.CreatePostRequest\x1a\x0f.other98.Result\"\x00\x12\x34\n\rCreateComment\x12\x10.other98.Comment\x1a\x0f.other98.Result\"\x00\x12\x32\n\nVoteOnPost\x12\x11.other98.PostVote\x1a\x0f.other98.Result\"\x00\x12\x38\n\rVoteOnComment\x12\x14.other98.CommentVote\x1a\x0f.other98.Result\"\x00\x12\x32\n\x10PopulateDatabase\x12\r.other98.Void\x1a\r.other98.Void\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+  serialized_pb=_b('\n\rother98.proto\x12\x07other98\"\x06\n\x04Void\".\n\nGetRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"T\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\x12\x11\n\tauthToken\x18\x04 \x01(\t\"\xc5\x01\n\x06Result\x12.\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1a.other98.Result.StatusCode\x12\x14\n\x0c\x65rrorMessage\x18\x02 \x01(\t\x12\x11\n\tcreatedId\x18\x03 \x01(\t\"b\n\nStatusCode\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02OK\x10\x01\x12\x10\n\x0cUNAUTHORIZED\x10\x02\x12\r\n\tFORBIDDEN\x10\x03\x12\r\n\tNOT_FOUND\x10\x04\x12\x12\n\x0eINTERNAL_ERROR\x10\x05\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"u\n\x04Post\x12-\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\x91\x02\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12\"\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x10.other98.Comment\x12\r\n\x05score\x18\x06 \x01(\x05\x12\x10\n\x08userVote\x18\x07 \x01(\x05\x12$\n\tpostVotes\x18\x08 \x03(\x0b\x32\x11.other98.PostVote\x12\x1f\n\x06result\x18\t \x01(\x0b\x32\x0f.other98.Result\"\xa7\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\x12\r\n\x05score\x18\x05 \x01(\x05\x12\x10\n\x08userVote\x18\x06 \x01(\x05\"u\n\x10\x46\x65\x65\x64ResponseView\x12,\n\rpostFeedViews\x18\x01 \x03(\x0b\x32\x15.other98.PostFeedView\x12\x12\n\nnextPageId\x18\x02 \x01(\t\x12\x1f\n\x06result\x18\x03 \x01(\x0b\x32\x0f.other98.Result\"H\n\x11\x43reatePostRequest\x12\x1b\n\x04post\x18\x01 \x01(\x0b\x32\r.other98.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"Y\n\x13ProfileResponseView\x12!\n\x07profile\x18\x01 \x01(\x0b\x32\x10.other98.Profile\x12\x1f\n\x06result\x18\x02 \x01(\x0b\x32\x0f.other98.Result\"\xd9\x01\n\x0c\x43ontentBlock\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32&.other98.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\'\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\"Y\n\x10\x43ontentBlockType\x12\x08\n\x04Text\x10\x00\x12\t\n\x05Image\x10\x01\x12\x10\n\x0cImageGallery\x10\x02\x12\x08\n\x04Link\x10\x03\x12\t\n\x05Video\x10\x04\x12\t\n\x05Quote\x10\x05\"\xa2\x01\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\x12*\n\x0c\x63ommentVotes\x18\x07 \x03(\x0b\x32\x14.other98.CommentVote\"B\n\x0b\x43ommentView\x12!\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x10.other98.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\"E\n\x08PostVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x12\n\nuserHandle\x18\x02 \x01(\t\x12\x11\n\tvoteValue\x18\x03 \x01(\x05\"[\n\x0b\x43ommentVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x11\n\tcommentId\x18\x02 \x01(\x03\x12\x12\n\nuserHandle\x18\x03 \x01(\t\x12\x11\n\tvoteValue\x18\x04 \x01(\x05\x32\xd7\x03\n\nTheOther98\x12<\n\x07GetFeed\x12\x14.other98.FeedRequest\x1a\x19.other98.FeedResponseView\"\x00\x12\x33\n\x07GetPost\x12\x13.other98.GetRequest\x1a\x11.other98.PostView\"\x00\x12\x41\n\nGetProfile\x12\x13.other98.GetRequest\x1a\x1c.other98.ProfileResponseView\"\x00\x12;\n\nCreatePost\x12\x1a.other98.CreatePostRequest\x1a\x0f.other98.Result\"\x00\x12\x34\n\rCreateComment\x12\x10.other98.Comment\x1a\x0f.other98.Result\"\x00\x12\x32\n\nVoteOnPost\x12\x11.other98.PostVote\x1a\x0f.other98.Result\"\x00\x12\x38\n\rVoteOnComment\x12\x14.other98.CommentVote\x1a\x0f.other98.Result\"\x00\x12\x32\n\x10PopulateDatabase\x12\r.other98.Void\x1a\r.other98.Void\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 )
 
 
@@ -31,30 +31,34 @@ _RESULT_STATUSCODE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='OK', index=0, number=0,
+      name='NONE', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='UNAUTHORIZED', index=1, number=1,
+      name='OK', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FORBIDDEN', index=2, number=2,
+      name='UNAUTHORIZED', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='NOT_FOUND', index=3, number=3,
+      name='FORBIDDEN', index=3, number=3,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='INTERNAL_ERROR', index=4, number=4,
+      name='NOT_FOUND', index=4, number=4,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='INTERNAL_ERROR', index=5, number=5,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=249,
-  serialized_end=337,
+  serialized_start=268,
+  serialized_end=366,
 )
 _sym_db.RegisterEnumDescriptor(_RESULT_STATUSCODE)
 
@@ -91,8 +95,8 @@ _CONTENTBLOCK_CONTENTBLOCKTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1510,
-  serialized_end=1599,
+  serialized_start=1539,
+  serialized_end=1628,
 )
 _sym_db.RegisterEnumDescriptor(_CONTENTBLOCK_CONTENTBLOCKTYPE)
 
@@ -232,6 +236,13 @@ _RESULT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='createdId', full_name='other98.Result.createdId', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -246,7 +257,7 @@ _RESULT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=169,
-  serialized_end=337,
+  serialized_end=366,
 )
 
 
@@ -311,8 +322,8 @@ _POSTSMALLVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=340,
-  serialized_end=474,
+  serialized_start=369,
+  serialized_end=503,
 )
 
 
@@ -356,8 +367,8 @@ _POST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=476,
-  serialized_end=593,
+  serialized_start=505,
+  serialized_end=622,
 )
 
 
@@ -443,8 +454,8 @@ _POSTVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=596,
-  serialized_end=869,
+  serialized_start=625,
+  serialized_end=898,
 )
 
 
@@ -509,8 +520,8 @@ _POSTFEEDVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=872,
-  serialized_end=1039,
+  serialized_start=901,
+  serialized_end=1068,
 )
 
 
@@ -554,8 +565,8 @@ _FEEDRESPONSEVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1041,
-  serialized_end=1158,
+  serialized_start=1070,
+  serialized_end=1187,
 )
 
 
@@ -592,8 +603,8 @@ _CREATEPOSTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1160,
-  serialized_end=1232,
+  serialized_start=1189,
+  serialized_end=1261,
 )
 
 
@@ -637,8 +648,8 @@ _PROFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1234,
-  serialized_end=1288,
+  serialized_start=1263,
+  serialized_end=1317,
 )
 
 
@@ -675,8 +686,8 @@ _PROFILERESPONSEVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1290,
-  serialized_end=1379,
+  serialized_start=1319,
+  serialized_end=1408,
 )
 
 
@@ -721,8 +732,8 @@ _CONTENTBLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1382,
-  serialized_end=1599,
+  serialized_start=1411,
+  serialized_end=1628,
 )
 
 
@@ -794,8 +805,8 @@ _COMMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1602,
-  serialized_end=1764,
+  serialized_start=1631,
+  serialized_end=1793,
 )
 
 
@@ -832,8 +843,8 @@ _COMMENTVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1766,
-  serialized_end=1832,
+  serialized_start=1795,
+  serialized_end=1861,
 )
 
 
@@ -877,8 +888,8 @@ _POSTVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1834,
-  serialized_end=1903,
+  serialized_start=1863,
+  serialized_end=1932,
 )
 
 
@@ -929,8 +940,8 @@ _COMMENTVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1905,
-  serialized_end=1996,
+  serialized_start=1934,
+  serialized_end=2025,
 )
 
 _RESULT.fields_by_name['statusCode'].enum_type = _RESULT_STATUSCODE
@@ -1100,8 +1111,8 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1999,
-  serialized_end=2470,
+  serialized_start=2028,
+  serialized_end=2499,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetFeed',

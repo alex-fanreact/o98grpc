@@ -39,13 +39,15 @@ message FeedRequest {
 message Result {
     StatusCode statusCode = 1;
     string errorMessage = 2;
+    string createdId = 3;
 
     enum StatusCode {
-        OK = 0;
-        UNAUTHORIZED = 1;
-        FORBIDDEN = 2;
-        NOT_FOUND = 3;
-        INTERNAL_ERROR = 4;
+        NONE = 0;
+        OK = 1;
+        UNAUTHORIZED = 2;
+        FORBIDDEN = 3;
+        NOT_FOUND = 4;
+        INTERNAL_ERROR = 5;
     }
 }
 
