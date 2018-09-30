@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.fanreact.other98;
+package other98;
 
 option java_multiple_files = true;
 option java_package = "io.grpc.examples.helloworld";

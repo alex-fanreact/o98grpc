@@ -16,17 +16,17 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='other98.proto',
-  package='com.fanreact.other98',
+  package='other98',
   syntax='proto3',
   serialized_options=_b('\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'),
-  serialized_pb=_b('\n\rother98.proto\x12\x14\x63om.fanreact.other98\"\x06\n\x04Void\".\n\nGetRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"T\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\x12\x11\n\tauthToken\x18\x04 \x01(\t\"\xb5\x01\n\x06Result\x12;\n\nstatusCode\x18\x01 \x01(\x0e\x32\'.com.fanreact.other98.Result.StatusCode\x12\x14\n\x0c\x65rrorMessage\x18\x02 \x01(\t\"X\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x10\n\x0cUNAUTHORIZED\x10\x01\x12\r\n\tFORBIDDEN\x10\x02\x12\r\n\tNOT_FOUND\x10\x03\x12\x12\n\x0eINTERNAL_ERROR\x10\x04\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"\x8f\x01\n\x04Post\x12:\n\rpostSmallView\x18\x01 \x01(\x0b\x32#.com.fanreact.other98.PostSmallView\x12\x39\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\".com.fanreact.other98.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\xd2\x02\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12:\n\rpostSmallView\x18\x02 \x01(\x0b\x32#.com.fanreact.other98.PostSmallView\x12\x39\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\".com.fanreact.other98.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12/\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x1d.com.fanreact.other98.Comment\x12\r\n\x05score\x18\x06 \x01(\x05\x12\x10\n\x08userVote\x18\x07 \x01(\x05\x12\x31\n\tpostVotes\x18\x08 \x03(\x0b\x32\x1e.com.fanreact.other98.PostVote\x12,\n\x06result\x18\t \x01(\x0b\x32\x1c.com.fanreact.other98.Result\"\xb4\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12:\n\rpostSmallView\x18\x02 \x01(\x0b\x32#.com.fanreact.other98.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\x12\r\n\x05score\x18\x05 \x01(\x05\x12\x10\n\x08userVote\x18\x06 \x01(\x05\"\x8f\x01\n\x10\x46\x65\x65\x64ResponseView\x12\x39\n\rpostFeedViews\x18\x01 \x03(\x0b\x32\".com.fanreact.other98.PostFeedView\x12\x12\n\nnextPageId\x18\x02 \x01(\t\x12,\n\x06result\x18\x03 \x01(\x0b\x32\x1c.com.fanreact.other98.Result\"U\n\x11\x43reatePostRequest\x12(\n\x04post\x18\x01 \x01(\x0b\x32\x1a.com.fanreact.other98.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"s\n\x13ProfileResponseView\x12.\n\x07profile\x18\x01 \x01(\x0b\x32\x1d.com.fanreact.other98.Profile\x12,\n\x06result\x18\x02 \x01(\x0b\x32\x1c.com.fanreact.other98.Result\"\xf3\x01\n\x0c\x43ontentBlock\x12\x41\n\x04type\x18\x01 \x01(\x0e\x32\x33.com.fanreact.other98.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x34\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\".com.fanreact.other98.ContentBlock\"Y\n\x10\x43ontentBlockType\x12\x08\n\x04Text\x10\x00\x12\t\n\x05Image\x10\x01\x12\x10\n\x0cImageGallery\x10\x02\x12\x08\n\x04Link\x10\x03\x12\t\n\x05Video\x10\x04\x12\t\n\x05Quote\x10\x05\"\xaf\x01\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\x12\x37\n\x0c\x63ommentVotes\x18\x07 \x03(\x0b\x32!.com.fanreact.other98.CommentVote\"O\n\x0b\x43ommentView\x12.\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x1d.com.fanreact.other98.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\"E\n\x08PostVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x12\n\nuserHandle\x18\x02 \x01(\t\x12\x11\n\tvoteValue\x18\x03 \x01(\x05\"[\n\x0b\x43ommentVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x11\n\tcommentId\x18\x02 \x01(\x03\x12\x12\n\nuserHandle\x18\x03 \x01(\t\x12\x11\n\tvoteValue\x18\x04 \x01(\x05\x32\xa7\x05\n\nTheOther98\x12V\n\x07GetFeed\x12!.com.fanreact.other98.FeedRequest\x1a&.com.fanreact.other98.FeedResponseView\"\x00\x12M\n\x07GetPost\x12 .com.fanreact.other98.GetRequest\x1a\x1e.com.fanreact.other98.PostView\"\x00\x12[\n\nGetProfile\x12 .com.fanreact.other98.GetRequest\x1a).com.fanreact.other98.ProfileResponseView\"\x00\x12U\n\nCreatePost\x12\'.com.fanreact.other98.CreatePostRequest\x1a\x1c.com.fanreact.other98.Result\"\x00\x12N\n\rCreateComment\x12\x1d.com.fanreact.other98.Comment\x1a\x1c.com.fanreact.other98.Result\"\x00\x12L\n\nVoteOnPost\x12\x1e.com.fanreact.other98.PostVote\x1a\x1c.com.fanreact.other98.Result\"\x00\x12R\n\rVoteOnComment\x12!.com.fanreact.other98.CommentVote\x1a\x1c.com.fanreact.other98.Result\"\x00\x12L\n\x10PopulateDatabase\x12\x1a.com.fanreact.other98.Void\x1a\x1a.com.fanreact.other98.Void\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+  serialized_pb=_b('\n\rother98.proto\x12\x07other98\"\x06\n\x04Void\".\n\nGetRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"T\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\x12\x11\n\tauthToken\x18\x04 \x01(\t\"\xa8\x01\n\x06Result\x12.\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1a.other98.Result.StatusCode\x12\x14\n\x0c\x65rrorMessage\x18\x02 \x01(\t\"X\n\nStatusCode\x12\x06\n\x02OK\x10\x00\x12\x10\n\x0cUNAUTHORIZED\x10\x01\x12\r\n\tFORBIDDEN\x10\x02\x12\r\n\tNOT_FOUND\x10\x03\x12\x12\n\x0eINTERNAL_ERROR\x10\x04\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"u\n\x04Post\x12-\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\x91\x02\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12\"\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x10.other98.Comment\x12\r\n\x05score\x18\x06 \x01(\x05\x12\x10\n\x08userVote\x18\x07 \x01(\x05\x12$\n\tpostVotes\x18\x08 \x03(\x0b\x32\x11.other98.PostVote\x12\x1f\n\x06result\x18\t \x01(\x0b\x32\x0f.other98.Result\"\xa7\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\x12\r\n\x05score\x18\x05 \x01(\x05\x12\x10\n\x08userVote\x18\x06 \x01(\x05\"u\n\x10\x46\x65\x65\x64ResponseView\x12,\n\rpostFeedViews\x18\x01 \x03(\x0b\x32\x15.other98.PostFeedView\x12\x12\n\nnextPageId\x18\x02 \x01(\t\x12\x1f\n\x06result\x18\x03 \x01(\x0b\x32\x0f.other98.Result\"H\n\x11\x43reatePostRequest\x12\x1b\n\x04post\x18\x01 \x01(\x0b\x32\r.other98.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"Y\n\x13ProfileResponseView\x12!\n\x07profile\x18\x01 \x01(\x0b\x32\x10.other98.Profile\x12\x1f\n\x06result\x18\x02 \x01(\x0b\x32\x0f.other98.Result\"\xd9\x01\n\x0c\x43ontentBlock\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32&.other98.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\'\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\"Y\n\x10\x43ontentBlockType\x12\x08\n\x04Text\x10\x00\x12\t\n\x05Image\x10\x01\x12\x10\n\x0cImageGallery\x10\x02\x12\x08\n\x04Link\x10\x03\x12\t\n\x05Video\x10\x04\x12\t\n\x05Quote\x10\x05\"\xa2\x01\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\x12*\n\x0c\x63ommentVotes\x18\x07 \x03(\x0b\x32\x14.other98.CommentVote\"B\n\x0b\x43ommentView\x12!\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x10.other98.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\"E\n\x08PostVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x12\n\nuserHandle\x18\x02 \x01(\t\x12\x11\n\tvoteValue\x18\x03 \x01(\x05\"[\n\x0b\x43ommentVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x11\n\tcommentId\x18\x02 \x01(\x03\x12\x12\n\nuserHandle\x18\x03 \x01(\t\x12\x11\n\tvoteValue\x18\x04 \x01(\x05\x32\xd7\x03\n\nTheOther98\x12<\n\x07GetFeed\x12\x14.other98.FeedRequest\x1a\x19.other98.FeedResponseView\"\x00\x12\x33\n\x07GetPost\x12\x13.other98.GetRequest\x1a\x11.other98.PostView\"\x00\x12\x41\n\nGetProfile\x12\x13.other98.GetRequest\x1a\x1c.other98.ProfileResponseView\"\x00\x12;\n\nCreatePost\x12\x1a.other98.CreatePostRequest\x1a\x0f.other98.Result\"\x00\x12\x34\n\rCreateComment\x12\x10.other98.Comment\x1a\x0f.other98.Result\"\x00\x12\x32\n\nVoteOnPost\x12\x11.other98.PostVote\x1a\x0f.other98.Result\"\x00\x12\x38\n\rVoteOnComment\x12\x14.other98.CommentVote\x1a\x0f.other98.Result\"\x00\x12\x32\n\x10PopulateDatabase\x12\r.other98.Void\x1a\r.other98.Void\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 )
 
 
 
 _RESULT_STATUSCODE = _descriptor.EnumDescriptor(
   name='StatusCode',
-  full_name='com.fanreact.other98.Result.StatusCode',
+  full_name='other98.Result.StatusCode',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -53,14 +53,14 @@ _RESULT_STATUSCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=275,
-  serialized_end=363,
+  serialized_start=249,
+  serialized_end=337,
 )
 _sym_db.RegisterEnumDescriptor(_RESULT_STATUSCODE)
 
 _CONTENTBLOCK_CONTENTBLOCKTYPE = _descriptor.EnumDescriptor(
   name='ContentBlockType',
-  full_name='com.fanreact.other98.ContentBlock.ContentBlockType',
+  full_name='other98.ContentBlock.ContentBlockType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -91,15 +91,15 @@ _CONTENTBLOCK_CONTENTBLOCKTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1733,
-  serialized_end=1822,
+  serialized_start=1510,
+  serialized_end=1599,
 )
 _sym_db.RegisterEnumDescriptor(_CONTENTBLOCK_CONTENTBLOCKTYPE)
 
 
 _VOID = _descriptor.Descriptor(
   name='Void',
-  full_name='com.fanreact.other98.Void',
+  full_name='other98.Void',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -116,27 +116,27 @@ _VOID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=39,
-  serialized_end=45,
+  serialized_start=26,
+  serialized_end=32,
 )
 
 
 _GETREQUEST = _descriptor.Descriptor(
   name='GetRequest',
-  full_name='com.fanreact.other98.GetRequest',
+  full_name='other98.GetRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='value', full_name='com.fanreact.other98.GetRequest.value', index=0,
+      name='value', full_name='other98.GetRequest.value', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='authToken', full_name='com.fanreact.other98.GetRequest.authToken', index=1,
+      name='authToken', full_name='other98.GetRequest.authToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -154,41 +154,41 @@ _GETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=47,
-  serialized_end=93,
+  serialized_start=34,
+  serialized_end=80,
 )
 
 
 _FEEDREQUEST = _descriptor.Descriptor(
   name='FeedRequest',
-  full_name='com.fanreact.other98.FeedRequest',
+  full_name='other98.FeedRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='postTags', full_name='com.fanreact.other98.FeedRequest.postTags', index=0,
+      name='postTags', full_name='other98.FeedRequest.postTags', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pageId', full_name='com.fanreact.other98.FeedRequest.pageId', index=1,
+      name='pageId', full_name='other98.FeedRequest.pageId', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pageSize', full_name='com.fanreact.other98.FeedRequest.pageSize', index=2,
+      name='pageSize', full_name='other98.FeedRequest.pageSize', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='authToken', full_name='com.fanreact.other98.FeedRequest.authToken', index=3,
+      name='authToken', full_name='other98.FeedRequest.authToken', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -206,27 +206,27 @@ _FEEDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=95,
-  serialized_end=179,
+  serialized_start=82,
+  serialized_end=166,
 )
 
 
 _RESULT = _descriptor.Descriptor(
   name='Result',
-  full_name='com.fanreact.other98.Result',
+  full_name='other98.Result',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='statusCode', full_name='com.fanreact.other98.Result.statusCode', index=0,
+      name='statusCode', full_name='other98.Result.statusCode', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='errorMessage', full_name='com.fanreact.other98.Result.errorMessage', index=1,
+      name='errorMessage', full_name='other98.Result.errorMessage', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -245,55 +245,55 @@ _RESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=182,
-  serialized_end=363,
+  serialized_start=169,
+  serialized_end=337,
 )
 
 
 _POSTSMALLVIEW = _descriptor.Descriptor(
   name='PostSmallView',
-  full_name='com.fanreact.other98.PostSmallView',
+  full_name='other98.PostSmallView',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='title', full_name='com.fanreact.other98.PostSmallView.title', index=0,
+      name='title', full_name='other98.PostSmallView.title', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description', full_name='com.fanreact.other98.PostSmallView.description', index=1,
+      name='description', full_name='other98.PostSmallView.description', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='featuredImageLink', full_name='com.fanreact.other98.PostSmallView.featuredImageLink', index=2,
+      name='featuredImageLink', full_name='other98.PostSmallView.featuredImageLink', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='createDate', full_name='com.fanreact.other98.PostSmallView.createDate', index=3,
+      name='createDate', full_name='other98.PostSmallView.createDate', index=3,
       number=6, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='type', full_name='com.fanreact.other98.PostSmallView.type', index=4,
+      name='type', full_name='other98.PostSmallView.type', index=4,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='authorHandle', full_name='com.fanreact.other98.PostSmallView.authorHandle', index=5,
+      name='authorHandle', full_name='other98.PostSmallView.authorHandle', index=5,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -311,34 +311,34 @@ _POSTSMALLVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=366,
-  serialized_end=500,
+  serialized_start=340,
+  serialized_end=474,
 )
 
 
 _POST = _descriptor.Descriptor(
   name='Post',
-  full_name='com.fanreact.other98.Post',
+  full_name='other98.Post',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='postSmallView', full_name='com.fanreact.other98.Post.postSmallView', index=0,
+      name='postSmallView', full_name='other98.Post.postSmallView', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='contentBlocks', full_name='com.fanreact.other98.Post.contentBlocks', index=1,
+      name='contentBlocks', full_name='other98.Post.contentBlocks', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='postTags', full_name='com.fanreact.other98.Post.postTags', index=2,
+      name='postTags', full_name='other98.Post.postTags', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -356,76 +356,76 @@ _POST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=503,
-  serialized_end=646,
+  serialized_start=476,
+  serialized_end=593,
 )
 
 
 _POSTVIEW = _descriptor.Descriptor(
   name='PostView',
-  full_name='com.fanreact.other98.PostView',
+  full_name='other98.PostView',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='com.fanreact.other98.PostView.id', index=0,
+      name='id', full_name='other98.PostView.id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='postSmallView', full_name='com.fanreact.other98.PostView.postSmallView', index=1,
+      name='postSmallView', full_name='other98.PostView.postSmallView', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='contentBlocks', full_name='com.fanreact.other98.PostView.contentBlocks', index=2,
+      name='contentBlocks', full_name='other98.PostView.contentBlocks', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='postTags', full_name='com.fanreact.other98.PostView.postTags', index=3,
+      name='postTags', full_name='other98.PostView.postTags', index=3,
       number=4, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='comments', full_name='com.fanreact.other98.PostView.comments', index=4,
+      name='comments', full_name='other98.PostView.comments', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='score', full_name='com.fanreact.other98.PostView.score', index=5,
+      name='score', full_name='other98.PostView.score', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='userVote', full_name='com.fanreact.other98.PostView.userVote', index=6,
+      name='userVote', full_name='other98.PostView.userVote', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='postVotes', full_name='com.fanreact.other98.PostView.postVotes', index=7,
+      name='postVotes', full_name='other98.PostView.postVotes', index=7,
       number=8, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='result', full_name='com.fanreact.other98.PostView.result', index=8,
+      name='result', full_name='other98.PostView.result', index=8,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -443,55 +443,55 @@ _POSTVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=649,
-  serialized_end=987,
+  serialized_start=596,
+  serialized_end=869,
 )
 
 
 _POSTFEEDVIEW = _descriptor.Descriptor(
   name='PostFeedView',
-  full_name='com.fanreact.other98.PostFeedView',
+  full_name='other98.PostFeedView',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='postViewId', full_name='com.fanreact.other98.PostFeedView.postViewId', index=0,
+      name='postViewId', full_name='other98.PostFeedView.postViewId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='postSmallView', full_name='com.fanreact.other98.PostFeedView.postSmallView', index=1,
+      name='postSmallView', full_name='other98.PostFeedView.postSmallView', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='numberOfComments', full_name='com.fanreact.other98.PostFeedView.numberOfComments', index=2,
+      name='numberOfComments', full_name='other98.PostFeedView.numberOfComments', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='dateOfLastComment', full_name='com.fanreact.other98.PostFeedView.dateOfLastComment', index=3,
+      name='dateOfLastComment', full_name='other98.PostFeedView.dateOfLastComment', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='score', full_name='com.fanreact.other98.PostFeedView.score', index=4,
+      name='score', full_name='other98.PostFeedView.score', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='userVote', full_name='com.fanreact.other98.PostFeedView.userVote', index=5,
+      name='userVote', full_name='other98.PostFeedView.userVote', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -509,34 +509,34 @@ _POSTFEEDVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=990,
-  serialized_end=1170,
+  serialized_start=872,
+  serialized_end=1039,
 )
 
 
 _FEEDRESPONSEVIEW = _descriptor.Descriptor(
   name='FeedResponseView',
-  full_name='com.fanreact.other98.FeedResponseView',
+  full_name='other98.FeedResponseView',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='postFeedViews', full_name='com.fanreact.other98.FeedResponseView.postFeedViews', index=0,
+      name='postFeedViews', full_name='other98.FeedResponseView.postFeedViews', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='nextPageId', full_name='com.fanreact.other98.FeedResponseView.nextPageId', index=1,
+      name='nextPageId', full_name='other98.FeedResponseView.nextPageId', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='result', full_name='com.fanreact.other98.FeedResponseView.result', index=2,
+      name='result', full_name='other98.FeedResponseView.result', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -554,27 +554,27 @@ _FEEDRESPONSEVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1173,
-  serialized_end=1316,
+  serialized_start=1041,
+  serialized_end=1158,
 )
 
 
 _CREATEPOSTREQUEST = _descriptor.Descriptor(
   name='CreatePostRequest',
-  full_name='com.fanreact.other98.CreatePostRequest',
+  full_name='other98.CreatePostRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='post', full_name='com.fanreact.other98.CreatePostRequest.post', index=0,
+      name='post', full_name='other98.CreatePostRequest.post', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='viewable_roles', full_name='com.fanreact.other98.CreatePostRequest.viewable_roles', index=1,
+      name='viewable_roles', full_name='other98.CreatePostRequest.viewable_roles', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -592,34 +592,34 @@ _CREATEPOSTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1318,
-  serialized_end=1403,
+  serialized_start=1160,
+  serialized_end=1232,
 )
 
 
 _PROFILE = _descriptor.Descriptor(
   name='Profile',
-  full_name='com.fanreact.other98.Profile',
+  full_name='other98.Profile',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='handle', full_name='com.fanreact.other98.Profile.handle', index=0,
+      name='handle', full_name='other98.Profile.handle', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='email', full_name='com.fanreact.other98.Profile.email', index=1,
+      name='email', full_name='other98.Profile.email', index=1,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='type', full_name='com.fanreact.other98.Profile.type', index=2,
+      name='type', full_name='other98.Profile.type', index=2,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -637,27 +637,27 @@ _PROFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1405,
-  serialized_end=1459,
+  serialized_start=1234,
+  serialized_end=1288,
 )
 
 
 _PROFILERESPONSEVIEW = _descriptor.Descriptor(
   name='ProfileResponseView',
-  full_name='com.fanreact.other98.ProfileResponseView',
+  full_name='other98.ProfileResponseView',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='profile', full_name='com.fanreact.other98.ProfileResponseView.profile', index=0,
+      name='profile', full_name='other98.ProfileResponseView.profile', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='result', full_name='com.fanreact.other98.ProfileResponseView.result', index=1,
+      name='result', full_name='other98.ProfileResponseView.result', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -675,34 +675,34 @@ _PROFILERESPONSEVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1461,
-  serialized_end=1576,
+  serialized_start=1290,
+  serialized_end=1379,
 )
 
 
 _CONTENTBLOCK = _descriptor.Descriptor(
   name='ContentBlock',
-  full_name='com.fanreact.other98.ContentBlock',
+  full_name='other98.ContentBlock',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='com.fanreact.other98.ContentBlock.type', index=0,
+      name='type', full_name='other98.ContentBlock.type', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='content', full_name='com.fanreact.other98.ContentBlock.content', index=1,
+      name='content', full_name='other98.ContentBlock.content', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='children', full_name='com.fanreact.other98.ContentBlock.children', index=2,
+      name='children', full_name='other98.ContentBlock.children', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -721,62 +721,62 @@ _CONTENTBLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1579,
-  serialized_end=1822,
+  serialized_start=1382,
+  serialized_end=1599,
 )
 
 
 _COMMENT = _descriptor.Descriptor(
   name='Comment',
-  full_name='com.fanreact.other98.Comment',
+  full_name='other98.Comment',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='com.fanreact.other98.Comment.id', index=0,
+      name='id', full_name='other98.Comment.id', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='postViewId', full_name='com.fanreact.other98.Comment.postViewId', index=1,
+      name='postViewId', full_name='other98.Comment.postViewId', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='createDateMillis', full_name='com.fanreact.other98.Comment.createDateMillis', index=2,
+      name='createDateMillis', full_name='other98.Comment.createDateMillis', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='authorHandle', full_name='com.fanreact.other98.Comment.authorHandle', index=3,
+      name='authorHandle', full_name='other98.Comment.authorHandle', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='text', full_name='com.fanreact.other98.Comment.text', index=4,
+      name='text', full_name='other98.Comment.text', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='score', full_name='com.fanreact.other98.Comment.score', index=5,
+      name='score', full_name='other98.Comment.score', index=5,
       number=6, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='commentVotes', full_name='com.fanreact.other98.Comment.commentVotes', index=6,
+      name='commentVotes', full_name='other98.Comment.commentVotes', index=6,
       number=7, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -794,27 +794,27 @@ _COMMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1825,
-  serialized_end=2000,
+  serialized_start=1602,
+  serialized_end=1764,
 )
 
 
 _COMMENTVIEW = _descriptor.Descriptor(
   name='CommentView',
-  full_name='com.fanreact.other98.CommentView',
+  full_name='other98.CommentView',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='comment', full_name='com.fanreact.other98.CommentView.comment', index=0,
+      name='comment', full_name='other98.CommentView.comment', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='userVote', full_name='com.fanreact.other98.CommentView.userVote', index=1,
+      name='userVote', full_name='other98.CommentView.userVote', index=1,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -832,34 +832,34 @@ _COMMENTVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2002,
-  serialized_end=2081,
+  serialized_start=1766,
+  serialized_end=1832,
 )
 
 
 _POSTVOTE = _descriptor.Descriptor(
   name='PostVote',
-  full_name='com.fanreact.other98.PostVote',
+  full_name='other98.PostVote',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='postViewId', full_name='com.fanreact.other98.PostVote.postViewId', index=0,
+      name='postViewId', full_name='other98.PostVote.postViewId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='userHandle', full_name='com.fanreact.other98.PostVote.userHandle', index=1,
+      name='userHandle', full_name='other98.PostVote.userHandle', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='voteValue', full_name='com.fanreact.other98.PostVote.voteValue', index=2,
+      name='voteValue', full_name='other98.PostVote.voteValue', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -877,41 +877,41 @@ _POSTVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2083,
-  serialized_end=2152,
+  serialized_start=1834,
+  serialized_end=1903,
 )
 
 
 _COMMENTVOTE = _descriptor.Descriptor(
   name='CommentVote',
-  full_name='com.fanreact.other98.CommentVote',
+  full_name='other98.CommentVote',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='postViewId', full_name='com.fanreact.other98.CommentVote.postViewId', index=0,
+      name='postViewId', full_name='other98.CommentVote.postViewId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='commentId', full_name='com.fanreact.other98.CommentVote.commentId', index=1,
+      name='commentId', full_name='other98.CommentVote.commentId', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='userHandle', full_name='com.fanreact.other98.CommentVote.userHandle', index=2,
+      name='userHandle', full_name='other98.CommentVote.userHandle', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='voteValue', full_name='com.fanreact.other98.CommentVote.voteValue', index=3,
+      name='voteValue', full_name='other98.CommentVote.voteValue', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -929,8 +929,8 @@ _COMMENTVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2154,
-  serialized_end=2245,
+  serialized_start=1905,
+  serialized_end=1996,
 )
 
 _RESULT.fields_by_name['statusCode'].enum_type = _RESULT_STATUSCODE
@@ -975,119 +975,119 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Void = _reflection.GeneratedProtocolMessageType('Void', (_message.Message,), dict(
   DESCRIPTOR = _VOID,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.Void)
+  # @@protoc_insertion_point(class_scope:other98.Void)
   ))
 _sym_db.RegisterMessage(Void)
 
 GetRequest = _reflection.GeneratedProtocolMessageType('GetRequest', (_message.Message,), dict(
   DESCRIPTOR = _GETREQUEST,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.GetRequest)
+  # @@protoc_insertion_point(class_scope:other98.GetRequest)
   ))
 _sym_db.RegisterMessage(GetRequest)
 
 FeedRequest = _reflection.GeneratedProtocolMessageType('FeedRequest', (_message.Message,), dict(
   DESCRIPTOR = _FEEDREQUEST,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.FeedRequest)
+  # @@protoc_insertion_point(class_scope:other98.FeedRequest)
   ))
 _sym_db.RegisterMessage(FeedRequest)
 
 Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), dict(
   DESCRIPTOR = _RESULT,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.Result)
+  # @@protoc_insertion_point(class_scope:other98.Result)
   ))
 _sym_db.RegisterMessage(Result)
 
 PostSmallView = _reflection.GeneratedProtocolMessageType('PostSmallView', (_message.Message,), dict(
   DESCRIPTOR = _POSTSMALLVIEW,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.PostSmallView)
+  # @@protoc_insertion_point(class_scope:other98.PostSmallView)
   ))
 _sym_db.RegisterMessage(PostSmallView)
 
 Post = _reflection.GeneratedProtocolMessageType('Post', (_message.Message,), dict(
   DESCRIPTOR = _POST,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.Post)
+  # @@protoc_insertion_point(class_scope:other98.Post)
   ))
 _sym_db.RegisterMessage(Post)
 
 PostView = _reflection.GeneratedProtocolMessageType('PostView', (_message.Message,), dict(
   DESCRIPTOR = _POSTVIEW,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.PostView)
+  # @@protoc_insertion_point(class_scope:other98.PostView)
   ))
 _sym_db.RegisterMessage(PostView)
 
 PostFeedView = _reflection.GeneratedProtocolMessageType('PostFeedView', (_message.Message,), dict(
   DESCRIPTOR = _POSTFEEDVIEW,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.PostFeedView)
+  # @@protoc_insertion_point(class_scope:other98.PostFeedView)
   ))
 _sym_db.RegisterMessage(PostFeedView)
 
 FeedResponseView = _reflection.GeneratedProtocolMessageType('FeedResponseView', (_message.Message,), dict(
   DESCRIPTOR = _FEEDRESPONSEVIEW,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.FeedResponseView)
+  # @@protoc_insertion_point(class_scope:other98.FeedResponseView)
   ))
 _sym_db.RegisterMessage(FeedResponseView)
 
 CreatePostRequest = _reflection.GeneratedProtocolMessageType('CreatePostRequest', (_message.Message,), dict(
   DESCRIPTOR = _CREATEPOSTREQUEST,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.CreatePostRequest)
+  # @@protoc_insertion_point(class_scope:other98.CreatePostRequest)
   ))
 _sym_db.RegisterMessage(CreatePostRequest)
 
 Profile = _reflection.GeneratedProtocolMessageType('Profile', (_message.Message,), dict(
   DESCRIPTOR = _PROFILE,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.Profile)
+  # @@protoc_insertion_point(class_scope:other98.Profile)
   ))
 _sym_db.RegisterMessage(Profile)
 
 ProfileResponseView = _reflection.GeneratedProtocolMessageType('ProfileResponseView', (_message.Message,), dict(
   DESCRIPTOR = _PROFILERESPONSEVIEW,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.ProfileResponseView)
+  # @@protoc_insertion_point(class_scope:other98.ProfileResponseView)
   ))
 _sym_db.RegisterMessage(ProfileResponseView)
 
 ContentBlock = _reflection.GeneratedProtocolMessageType('ContentBlock', (_message.Message,), dict(
   DESCRIPTOR = _CONTENTBLOCK,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.ContentBlock)
+  # @@protoc_insertion_point(class_scope:other98.ContentBlock)
   ))
 _sym_db.RegisterMessage(ContentBlock)
 
 Comment = _reflection.GeneratedProtocolMessageType('Comment', (_message.Message,), dict(
   DESCRIPTOR = _COMMENT,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.Comment)
+  # @@protoc_insertion_point(class_scope:other98.Comment)
   ))
 _sym_db.RegisterMessage(Comment)
 
 CommentView = _reflection.GeneratedProtocolMessageType('CommentView', (_message.Message,), dict(
   DESCRIPTOR = _COMMENTVIEW,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.CommentView)
+  # @@protoc_insertion_point(class_scope:other98.CommentView)
   ))
 _sym_db.RegisterMessage(CommentView)
 
 PostVote = _reflection.GeneratedProtocolMessageType('PostVote', (_message.Message,), dict(
   DESCRIPTOR = _POSTVOTE,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.PostVote)
+  # @@protoc_insertion_point(class_scope:other98.PostVote)
   ))
 _sym_db.RegisterMessage(PostVote)
 
 CommentVote = _reflection.GeneratedProtocolMessageType('CommentVote', (_message.Message,), dict(
   DESCRIPTOR = _COMMENTVOTE,
   __module__ = 'other98_pb2'
-  # @@protoc_insertion_point(class_scope:com.fanreact.other98.CommentVote)
+  # @@protoc_insertion_point(class_scope:other98.CommentVote)
   ))
 _sym_db.RegisterMessage(CommentVote)
 
@@ -1096,16 +1096,16 @@ DESCRIPTOR._options = None
 
 _THEOTHER98 = _descriptor.ServiceDescriptor(
   name='TheOther98',
-  full_name='com.fanreact.other98.TheOther98',
+  full_name='other98.TheOther98',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2248,
-  serialized_end=2927,
+  serialized_start=1999,
+  serialized_end=2470,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetFeed',
-    full_name='com.fanreact.other98.TheOther98.GetFeed',
+    full_name='other98.TheOther98.GetFeed',
     index=0,
     containing_service=None,
     input_type=_FEEDREQUEST,
@@ -1114,7 +1114,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='GetPost',
-    full_name='com.fanreact.other98.TheOther98.GetPost',
+    full_name='other98.TheOther98.GetPost',
     index=1,
     containing_service=None,
     input_type=_GETREQUEST,
@@ -1123,7 +1123,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='GetProfile',
-    full_name='com.fanreact.other98.TheOther98.GetProfile',
+    full_name='other98.TheOther98.GetProfile',
     index=2,
     containing_service=None,
     input_type=_GETREQUEST,
@@ -1132,7 +1132,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='CreatePost',
-    full_name='com.fanreact.other98.TheOther98.CreatePost',
+    full_name='other98.TheOther98.CreatePost',
     index=3,
     containing_service=None,
     input_type=_CREATEPOSTREQUEST,
@@ -1141,7 +1141,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='CreateComment',
-    full_name='com.fanreact.other98.TheOther98.CreateComment',
+    full_name='other98.TheOther98.CreateComment',
     index=4,
     containing_service=None,
     input_type=_COMMENT,
@@ -1150,7 +1150,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='VoteOnPost',
-    full_name='com.fanreact.other98.TheOther98.VoteOnPost',
+    full_name='other98.TheOther98.VoteOnPost',
     index=5,
     containing_service=None,
     input_type=_POSTVOTE,
@@ -1159,7 +1159,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='VoteOnComment',
-    full_name='com.fanreact.other98.TheOther98.VoteOnComment',
+    full_name='other98.TheOther98.VoteOnComment',
     index=6,
     containing_service=None,
     input_type=_COMMENTVOTE,
@@ -1168,7 +1168,7 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='PopulateDatabase',
-    full_name='com.fanreact.other98.TheOther98.PopulateDatabase',
+    full_name='other98.TheOther98.PopulateDatabase',
     index=7,
     containing_service=None,
     input_type=_VOID,
