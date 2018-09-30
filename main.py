@@ -356,7 +356,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
         profile = get_profile(gRPCServer.profilesCollection, request.value)
         log_result(profile, request_log)
         profileresponseview = other98_pb2.ProfileResponseView()
-        profileresponseview.profile = profile
+        profileresponseview.profile.CopyFrom(profile)
         result = other98_pb2.Result()
         if profile:
             result.statusCode = 0
