@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for com.fanreact.other98
+ * @fileoverview gRPC-Web generated client stub for other98
  * @enhanceable
  * @public
  */
@@ -12,9 +12,7 @@ const grpc = {};
 grpc.web = require('grpc-web');
 
 const proto = {};
-proto.com = {};
-proto.com.fanreact = {};
-proto.com.fanreact.other98 = require('./other98_pb.js');
+proto.other98 = require('./other98_pb.js');
 
 /**
  * @param {string} hostname
@@ -24,7 +22,7 @@ proto.com.fanreact.other98 = require('./other98_pb.js');
  * @struct
  * @final
  */
-proto.com.fanreact.other98.TheOther98Client =
+proto.other98.TheOther98Client =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
@@ -60,15 +58,15 @@ proto.com.fanreact.other98.TheOther98Client =
  * @struct
  * @final
  */
-proto.com.fanreact.other98.TheOther98PromiseClient =
+proto.other98.TheOther98PromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
 
   /**
-   * @private @const {!proto.com.fanreact.other98.TheOther98Client} The delegate callback based client
+   * @private @const {!proto.other98.TheOther98Client} The delegate callback based client
    */
-  this.delegateClient_ = new proto.com.fanreact.other98.TheOther98Client(
+  this.delegateClient_ = new proto.other98.TheOther98Client(
       hostname, credentials, options);
 
 };
@@ -77,33 +75,33 @@ proto.com.fanreact.other98.TheOther98PromiseClient =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.com.fanreact.other98.FeedRequest,
- *   !proto.com.fanreact.other98.FeedResponseView>}
+ *   !proto.other98.FeedRequest,
+ *   !proto.other98.FeedResponseView>}
  */
 const methodInfo_GetFeed = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.com.fanreact.other98.FeedResponseView,
-  /** @param {!proto.com.fanreact.other98.FeedRequest} request */
+  proto.other98.FeedResponseView,
+  /** @param {!proto.other98.FeedRequest} request */
   function(request) {
     return request.serializeBinary();
   },
-  proto.com.fanreact.other98.FeedResponseView.deserializeBinary
+  proto.other98.FeedResponseView.deserializeBinary
 );
 
 
 /**
- * @param {!proto.com.fanreact.other98.FeedRequest} request The
+ * @param {!proto.other98.FeedRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.com.fanreact.other98.FeedResponseView)}
+ * @param {function(?grpc.web.Error, ?proto.other98.FeedResponseView)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.com.fanreact.other98.FeedResponseView>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.FeedResponseView>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98Client.prototype.getFeed =
+proto.other98.TheOther98Client.prototype.getFeed =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/com.fanreact.other98.TheOther98/GetFeed',
+      '/other98.TheOther98/GetFeed',
       request,
       metadata,
       methodInfo_GetFeed,
@@ -112,14 +110,14 @@ proto.com.fanreact.other98.TheOther98Client.prototype.getFeed =
 
 
 /**
- * @param {!proto.com.fanreact.other98.FeedRequest} request The
+ * @param {!proto.other98.FeedRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.com.fanreact.other98.FeedResponseView>}
+ * @return {!Promise<!proto.other98.FeedResponseView>}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98PromiseClient.prototype.getFeed =
+proto.other98.TheOther98PromiseClient.prototype.getFeed =
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.getFeed(
@@ -133,33 +131,33 @@ proto.com.fanreact.other98.TheOther98PromiseClient.prototype.getFeed =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.com.fanreact.other98.GetRequest,
- *   !proto.com.fanreact.other98.PostView>}
+ *   !proto.other98.GetRequest,
+ *   !proto.other98.PostView>}
  */
 const methodInfo_GetPost = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.com.fanreact.other98.PostView,
-  /** @param {!proto.com.fanreact.other98.GetRequest} request */
+  proto.other98.PostView,
+  /** @param {!proto.other98.GetRequest} request */
   function(request) {
     return request.serializeBinary();
   },
-  proto.com.fanreact.other98.PostView.deserializeBinary
+  proto.other98.PostView.deserializeBinary
 );
 
 
 /**
- * @param {!proto.com.fanreact.other98.GetRequest} request The
+ * @param {!proto.other98.GetRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.com.fanreact.other98.PostView)}
+ * @param {function(?grpc.web.Error, ?proto.other98.PostView)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.com.fanreact.other98.PostView>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.PostView>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98Client.prototype.getPost =
+proto.other98.TheOther98Client.prototype.getPost =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/com.fanreact.other98.TheOther98/GetPost',
+      '/other98.TheOther98/GetPost',
       request,
       metadata,
       methodInfo_GetPost,
@@ -168,14 +166,14 @@ proto.com.fanreact.other98.TheOther98Client.prototype.getPost =
 
 
 /**
- * @param {!proto.com.fanreact.other98.GetRequest} request The
+ * @param {!proto.other98.GetRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.com.fanreact.other98.PostView>}
+ * @return {!Promise<!proto.other98.PostView>}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98PromiseClient.prototype.getPost =
+proto.other98.TheOther98PromiseClient.prototype.getPost =
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.getPost(
@@ -189,33 +187,33 @@ proto.com.fanreact.other98.TheOther98PromiseClient.prototype.getPost =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.com.fanreact.other98.GetRequest,
- *   !proto.com.fanreact.other98.ProfileResponseView>}
+ *   !proto.other98.GetRequest,
+ *   !proto.other98.ProfileResponseView>}
  */
 const methodInfo_GetProfile = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.com.fanreact.other98.ProfileResponseView,
-  /** @param {!proto.com.fanreact.other98.GetRequest} request */
+  proto.other98.ProfileResponseView,
+  /** @param {!proto.other98.GetRequest} request */
   function(request) {
     return request.serializeBinary();
   },
-  proto.com.fanreact.other98.ProfileResponseView.deserializeBinary
+  proto.other98.ProfileResponseView.deserializeBinary
 );
 
 
 /**
- * @param {!proto.com.fanreact.other98.GetRequest} request The
+ * @param {!proto.other98.GetRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.com.fanreact.other98.ProfileResponseView)}
+ * @param {function(?grpc.web.Error, ?proto.other98.ProfileResponseView)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.com.fanreact.other98.ProfileResponseView>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.ProfileResponseView>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98Client.prototype.getProfile =
+proto.other98.TheOther98Client.prototype.getProfile =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/com.fanreact.other98.TheOther98/GetProfile',
+      '/other98.TheOther98/GetProfile',
       request,
       metadata,
       methodInfo_GetProfile,
@@ -224,14 +222,14 @@ proto.com.fanreact.other98.TheOther98Client.prototype.getProfile =
 
 
 /**
- * @param {!proto.com.fanreact.other98.GetRequest} request The
+ * @param {!proto.other98.GetRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.com.fanreact.other98.ProfileResponseView>}
+ * @return {!Promise<!proto.other98.ProfileResponseView>}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98PromiseClient.prototype.getProfile =
+proto.other98.TheOther98PromiseClient.prototype.getProfile =
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.getProfile(
@@ -245,33 +243,33 @@ proto.com.fanreact.other98.TheOther98PromiseClient.prototype.getProfile =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.com.fanreact.other98.CreatePostRequest,
- *   !proto.com.fanreact.other98.Result>}
+ *   !proto.other98.CreatePostRequest,
+ *   !proto.other98.Result>}
  */
 const methodInfo_CreatePost = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.com.fanreact.other98.Result,
-  /** @param {!proto.com.fanreact.other98.CreatePostRequest} request */
+  proto.other98.Result,
+  /** @param {!proto.other98.CreatePostRequest} request */
   function(request) {
     return request.serializeBinary();
   },
-  proto.com.fanreact.other98.Result.deserializeBinary
+  proto.other98.Result.deserializeBinary
 );
 
 
 /**
- * @param {!proto.com.fanreact.other98.CreatePostRequest} request The
+ * @param {!proto.other98.CreatePostRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.com.fanreact.other98.Result)}
+ * @param {function(?grpc.web.Error, ?proto.other98.Result)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.com.fanreact.other98.Result>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.Result>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98Client.prototype.createPost =
+proto.other98.TheOther98Client.prototype.createPost =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/com.fanreact.other98.TheOther98/CreatePost',
+      '/other98.TheOther98/CreatePost',
       request,
       metadata,
       methodInfo_CreatePost,
@@ -280,14 +278,14 @@ proto.com.fanreact.other98.TheOther98Client.prototype.createPost =
 
 
 /**
- * @param {!proto.com.fanreact.other98.CreatePostRequest} request The
+ * @param {!proto.other98.CreatePostRequest} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.com.fanreact.other98.Result>}
+ * @return {!Promise<!proto.other98.Result>}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98PromiseClient.prototype.createPost =
+proto.other98.TheOther98PromiseClient.prototype.createPost =
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.createPost(
@@ -301,33 +299,33 @@ proto.com.fanreact.other98.TheOther98PromiseClient.prototype.createPost =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.com.fanreact.other98.Comment,
- *   !proto.com.fanreact.other98.Result>}
+ *   !proto.other98.Comment,
+ *   !proto.other98.Result>}
  */
 const methodInfo_CreateComment = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.com.fanreact.other98.Result,
-  /** @param {!proto.com.fanreact.other98.Comment} request */
+  proto.other98.Result,
+  /** @param {!proto.other98.Comment} request */
   function(request) {
     return request.serializeBinary();
   },
-  proto.com.fanreact.other98.Result.deserializeBinary
+  proto.other98.Result.deserializeBinary
 );
 
 
 /**
- * @param {!proto.com.fanreact.other98.Comment} request The
+ * @param {!proto.other98.Comment} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.com.fanreact.other98.Result)}
+ * @param {function(?grpc.web.Error, ?proto.other98.Result)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.com.fanreact.other98.Result>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.Result>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98Client.prototype.createComment =
+proto.other98.TheOther98Client.prototype.createComment =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/com.fanreact.other98.TheOther98/CreateComment',
+      '/other98.TheOther98/CreateComment',
       request,
       metadata,
       methodInfo_CreateComment,
@@ -336,14 +334,14 @@ proto.com.fanreact.other98.TheOther98Client.prototype.createComment =
 
 
 /**
- * @param {!proto.com.fanreact.other98.Comment} request The
+ * @param {!proto.other98.Comment} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.com.fanreact.other98.Result>}
+ * @return {!Promise<!proto.other98.Result>}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98PromiseClient.prototype.createComment =
+proto.other98.TheOther98PromiseClient.prototype.createComment =
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.createComment(
@@ -357,33 +355,145 @@ proto.com.fanreact.other98.TheOther98PromiseClient.prototype.createComment =
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.com.fanreact.other98.Void,
- *   !proto.com.fanreact.other98.Void>}
+ *   !proto.other98.PostVote,
+ *   !proto.other98.Result>}
  */
-const methodInfo_PopulateDatabase = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.com.fanreact.other98.Void,
-  /** @param {!proto.com.fanreact.other98.Void} request */
+const methodInfo_VoteOnPost = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.other98.Result,
+  /** @param {!proto.other98.PostVote} request */
   function(request) {
     return request.serializeBinary();
   },
-  proto.com.fanreact.other98.Void.deserializeBinary
+  proto.other98.Result.deserializeBinary
 );
 
 
 /**
- * @param {!proto.com.fanreact.other98.Void} request The
+ * @param {!proto.other98.PostVote} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.com.fanreact.other98.Void)}
+ * @param {function(?grpc.web.Error, ?proto.other98.Result)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.com.fanreact.other98.Void>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.Result>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98Client.prototype.populateDatabase =
+proto.other98.TheOther98Client.prototype.voteOnPost =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/com.fanreact.other98.TheOther98/PopulateDatabase',
+      '/other98.TheOther98/VoteOnPost',
+      request,
+      metadata,
+      methodInfo_VoteOnPost,
+      callback);
+};
+
+
+/**
+ * @param {!proto.other98.PostVote} request The
+ *     request proto
+ * @param {!Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.other98.Result>}
+ *     The XHR Node Readable Stream
+ */
+proto.other98.TheOther98PromiseClient.prototype.voteOnPost =
+    function(request, metadata) {
+  return new Promise((resolve, reject) => {
+    this.delegateClient_.voteOnPost(
+      request, metadata, (error, response) => {
+        error ? reject(error) : resolve(response);
+      });
+  });
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.other98.CommentVote,
+ *   !proto.other98.Result>}
+ */
+const methodInfo_VoteOnComment = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.other98.Result,
+  /** @param {!proto.other98.CommentVote} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.other98.Result.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.other98.CommentVote} request The
+ *     request proto
+ * @param {!Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.other98.Result)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.Result>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.other98.TheOther98Client.prototype.voteOnComment =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/other98.TheOther98/VoteOnComment',
+      request,
+      metadata,
+      methodInfo_VoteOnComment,
+      callback);
+};
+
+
+/**
+ * @param {!proto.other98.CommentVote} request The
+ *     request proto
+ * @param {!Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.other98.Result>}
+ *     The XHR Node Readable Stream
+ */
+proto.other98.TheOther98PromiseClient.prototype.voteOnComment =
+    function(request, metadata) {
+  return new Promise((resolve, reject) => {
+    this.delegateClient_.voteOnComment(
+      request, metadata, (error, response) => {
+        error ? reject(error) : resolve(response);
+      });
+  });
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.other98.Void,
+ *   !proto.other98.Void>}
+ */
+const methodInfo_PopulateDatabase = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.other98.Void,
+  /** @param {!proto.other98.Void} request */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.other98.Void.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.other98.Void} request The
+ *     request proto
+ * @param {!Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.other98.Void)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.other98.Void>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.other98.TheOther98Client.prototype.populateDatabase =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/other98.TheOther98/PopulateDatabase',
       request,
       metadata,
       methodInfo_PopulateDatabase,
@@ -392,14 +502,14 @@ proto.com.fanreact.other98.TheOther98Client.prototype.populateDatabase =
 
 
 /**
- * @param {!proto.com.fanreact.other98.Void} request The
+ * @param {!proto.other98.Void} request The
  *     request proto
  * @param {!Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.com.fanreact.other98.Void>}
+ * @return {!Promise<!proto.other98.Void>}
  *     The XHR Node Readable Stream
  */
-proto.com.fanreact.other98.TheOther98PromiseClient.prototype.populateDatabase =
+proto.other98.TheOther98PromiseClient.prototype.populateDatabase =
     function(request, metadata) {
   return new Promise((resolve, reject) => {
     this.delegateClient_.populateDatabase(
@@ -410,5 +520,5 @@ proto.com.fanreact.other98.TheOther98PromiseClient.prototype.populateDatabase =
 };
 
 
-module.exports = proto.com.fanreact.other98;
+module.exports = proto.other98;
 
