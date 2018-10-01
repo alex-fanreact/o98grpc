@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% for post in posts %}
+    <tr><td colspan="3">
+        <h3>Title: <a href={{url_for('post', post_id=post.postViewId)}}> {{ post.postSmallView.title }} </a></h3>
+        <div><span>Author:</span><span>{{post.postSmallView.authorHandle}}</span></div>
+        <div><span>Summary:</span><span>{{post.postSmallView.description}}</span></div>
+    </td></tr>
+    {% endfor %}
+ 
+    <tr><td colspan="3">
+        <a href={{url_for(type, page=next)}}>Next Page</a>
+    </td></tr>
+{% endblock %}
