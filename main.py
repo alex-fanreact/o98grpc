@@ -14,6 +14,7 @@ import other98_pb2 as other98_pb2
 import other98_pb2_grpc as other98_pb2_grpc
 from google.protobuf.json_format import MessageToJson
 from google.protobuf.json_format import MessageToDict
+import json
 
 role_user = 'user'
 role_anonymous = 'anonymous'
