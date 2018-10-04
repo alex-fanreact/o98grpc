@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='other98',
   syntax='proto3',
   serialized_options=_b('\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'),
-  serialized_pb=_b('\n\rother98.proto\x12\x07other98\"\x06\n\x04Void\".\n\nGetRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"T\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\x12\x11\n\tauthToken\x18\x04 \x01(\t\"\xc5\x01\n\x06Result\x12.\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1a.other98.Result.StatusCode\x12\x14\n\x0c\x65rrorMessage\x18\x02 \x01(\t\x12\x11\n\tcreatedId\x18\x03 \x01(\t\"b\n\nStatusCode\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02OK\x10\x01\x12\x10\n\x0cUNAUTHORIZED\x10\x02\x12\r\n\tFORBIDDEN\x10\x03\x12\r\n\tNOT_FOUND\x10\x04\x12\x12\n\x0eINTERNAL_ERROR\x10\x05\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"u\n\x04Post\x12-\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\x91\x02\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12\"\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x10.other98.Comment\x12\r\n\x05score\x18\x06 \x01(\x05\x12\x10\n\x08userVote\x18\x07 \x01(\x05\x12$\n\tpostVotes\x18\x08 \x03(\x0b\x32\x11.other98.PostVote\x12\x1f\n\x06result\x18\t \x01(\x0b\x32\x0f.other98.Result\"\xa7\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\x12\r\n\x05score\x18\x05 \x01(\x05\x12\x10\n\x08userVote\x18\x06 \x01(\x05\"u\n\x10\x46\x65\x65\x64ResponseView\x12,\n\rpostFeedViews\x18\x01 \x03(\x0b\x32\x15.other98.PostFeedView\x12\x12\n\nnextPageId\x18\x02 \x01(\t\x12\x1f\n\x06result\x18\x03 \x01(\x0b\x32\x0f.other98.Result\"H\n\x11\x43reatePostRequest\x12\x1b\n\x04post\x18\x01 \x01(\x0b\x32\r.other98.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"Y\n\x13ProfileResponseView\x12!\n\x07profile\x18\x01 \x01(\x0b\x32\x10.other98.Profile\x12\x1f\n\x06result\x18\x02 \x01(\x0b\x32\x0f.other98.Result\"\xe3\x01\n\x0c\x43ontentBlock\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32&.other98.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\'\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\"c\n\x10\x43ontentBlockType\x12\x08\n\x04None\x10\x00\x12\x08\n\x04Text\x10\x01\x12\t\n\x05Image\x10\x02\x12\x10\n\x0cImageGallery\x10\x03\x12\x08\n\x04Link\x10\x04\x12\t\n\x05Video\x10\x05\x12\t\n\x05Quote\x10\x06\"\xa2\x01\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\x12*\n\x0c\x63ommentVotes\x18\x07 \x03(\x0b\x32\x14.other98.CommentVote\"B\n\x0b\x43ommentView\x12!\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x10.other98.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\"E\n\x08PostVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x12\n\nuserHandle\x18\x02 \x01(\t\x12\x11\n\tvoteValue\x18\x03 \x01(\x05\"[\n\x0b\x43ommentVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x11\n\tcommentId\x18\x02 \x01(\x03\x12\x12\n\nuserHandle\x18\x03 \x01(\t\x12\x11\n\tvoteValue\x18\x04 \x01(\x05\x32\xd7\x03\n\nTheOther98\x12<\n\x07GetFeed\x12\x14.other98.FeedRequest\x1a\x19.other98.FeedResponseView\"\x00\x12\x33\n\x07GetPost\x12\x13.other98.GetRequest\x1a\x11.other98.PostView\"\x00\x12\x41\n\nGetProfile\x12\x13.other98.GetRequest\x1a\x1c.other98.ProfileResponseView\"\x00\x12;\n\nCreatePost\x12\x1a.other98.CreatePostRequest\x1a\x0f.other98.Result\"\x00\x12\x34\n\rCreateComment\x12\x10.other98.Comment\x1a\x0f.other98.Result\"\x00\x12\x32\n\nVoteOnPost\x12\x11.other98.PostVote\x1a\x0f.other98.Result\"\x00\x12\x38\n\rVoteOnComment\x12\x14.other98.CommentVote\x1a\x0f.other98.Result\"\x00\x12\x32\n\x10PopulateDatabase\x12\r.other98.Void\x1a\r.other98.Void\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+  serialized_pb=_b('\n\rother98.proto\x12\x07other98\"\x06\n\x04Void\".\n\nGetRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"T\n\x0b\x46\x65\x65\x64Request\x12\x10\n\x08postTags\x18\x01 \x03(\t\x12\x0e\n\x06pageId\x18\x02 \x01(\t\x12\x10\n\x08pageSize\x18\x03 \x01(\x05\x12\x11\n\tauthToken\x18\x04 \x01(\t\"\xc5\x01\n\x06Result\x12.\n\nstatusCode\x18\x01 \x01(\x0e\x32\x1a.other98.Result.StatusCode\x12\x14\n\x0c\x65rrorMessage\x18\x02 \x01(\t\x12\x11\n\tcreatedId\x18\x03 \x01(\t\"b\n\nStatusCode\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02OK\x10\x01\x12\x10\n\x0cUNAUTHORIZED\x10\x02\x12\r\n\tFORBIDDEN\x10\x03\x12\r\n\tNOT_FOUND\x10\x04\x12\x12\n\x0eINTERNAL_ERROR\x10\x05\"\x86\x01\n\rPostSmallView\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x66\x65\x61turedImageLink\x18\x03 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x14\n\x0c\x61uthorHandle\x18\x08 \x01(\t\"u\n\x04Post\x12-\n\rpostSmallView\x18\x01 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x02 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x03 \x03(\t\"\x91\x02\n\x08PostView\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12,\n\rcontentBlocks\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\x12\x10\n\x08postTags\x18\x04 \x03(\t\x12\"\n\x08\x63omments\x18\x05 \x03(\x0b\x32\x10.other98.Comment\x12\r\n\x05score\x18\x06 \x01(\x05\x12\x10\n\x08userVote\x18\x07 \x01(\x05\x12$\n\tpostVotes\x18\x08 \x03(\x0b\x32\x11.other98.PostVote\x12\x1f\n\x06result\x18\t \x01(\x0b\x32\x0f.other98.Result\"\xa7\x01\n\x0cPostFeedView\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12-\n\rpostSmallView\x18\x02 \x01(\x0b\x32\x16.other98.PostSmallView\x12\x18\n\x10numberOfComments\x18\x03 \x01(\x03\x12\x19\n\x11\x64\x61teOfLastComment\x18\x04 \x01(\x03\x12\r\n\x05score\x18\x05 \x01(\x05\x12\x10\n\x08userVote\x18\x06 \x01(\x05\"u\n\x10\x46\x65\x65\x64ResponseView\x12,\n\rpostFeedViews\x18\x01 \x03(\x0b\x32\x15.other98.PostFeedView\x12\x12\n\nnextPageId\x18\x02 \x01(\t\x12\x1f\n\x06result\x18\x03 \x01(\x0b\x32\x0f.other98.Result\"H\n\x11\x43reatePostRequest\x12\x1b\n\x04post\x18\x01 \x01(\x0b\x32\r.other98.Post\x12\x16\n\x0eviewable_roles\x18\x02 \x03(\t\"6\n\x07Profile\x12\x0e\n\x06handle\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x08 \x01(\t\"Y\n\x13ProfileResponseView\x12!\n\x07profile\x18\x01 \x01(\x0b\x32\x10.other98.Profile\x12\x1f\n\x06result\x18\x02 \x01(\x0b\x32\x0f.other98.Result\"\xe3\x01\n\x0c\x43ontentBlock\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32&.other98.ContentBlock.ContentBlockType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\'\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x15.other98.ContentBlock\"c\n\x10\x43ontentBlockType\x12\x08\n\x04None\x10\x00\x12\x08\n\x04Text\x10\x01\x12\t\n\x05Image\x10\x02\x12\x10\n\x0cImageGallery\x10\x03\x12\x08\n\x04Link\x10\x04\x12\t\n\x05Video\x10\x05\x12\t\n\x05Quote\x10\x06\"\xa2\x01\n\x07\x43omment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\npostViewId\x18\x02 \x01(\t\x12\x18\n\x10\x63reateDateMillis\x18\x03 \x01(\x03\x12\x14\n\x0c\x61uthorHandle\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\r\n\x05score\x18\x06 \x01(\x03\x12*\n\x0c\x63ommentVotes\x18\x07 \x03(\x0b\x32\x14.other98.CommentVote\"B\n\x0b\x43ommentView\x12!\n\x07\x63omment\x18\x01 \x01(\x0b\x32\x10.other98.Comment\x12\x10\n\x08userVote\x18\x03 \x01(\x05\"E\n\x08PostVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x12\n\nuserHandle\x18\x02 \x01(\t\x12\x11\n\tvoteValue\x18\x03 \x01(\x05\"[\n\x0b\x43ommentVote\x12\x12\n\npostViewId\x18\x01 \x01(\t\x12\x11\n\tcommentId\x18\x02 \x01(\x03\x12\x12\n\nuserHandle\x18\x03 \x01(\t\x12\x11\n\tvoteValue\x18\x04 \x01(\x05\"|\n\x07Message\x12\x14\n\x0csenderHandle\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x10\n\x08imageUrl\x18\x03 \x01(\t\x12\x0f\n\x07\x66ileUrl\x18\x04 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x05 \x01(\t\x12\x12\n\ncreateDate\x18\x06 \x01(\x03\"<\n\x0bMessageView\x12\n\n\x02id\x18\x01 \x01(\t\x12!\n\x07message\x18\x02 \x01(\x0b\x32\x10.other98.Message\"J\n\x12SendMessageRequest\x12\x11\n\tauthToken\x18\x01 \x01(\t\x12!\n\x07message\x18\x02 \x01(\x0b\x32\x10.other98.Message\"M\n GetMessagesInConversationRequest\x12\x16\n\x0e\x63onversationId\x18\x01 \x01(\t\x12\x11\n\tauthToken\x18\x02 \x01(\t\"\x84\x01\n\x0c\x43onversation\x12\x1a\n\x12participantHandles\x18\x01 \x03(\t\x12\x18\n\x10\x63onversationName\x18\x02 \x01(\t\x12\x14\n\x0ciconImageUrl\x18\x03 \x01(\t\x12\x11\n\tisPrivate\x18\x04 \x01(\x08\x12\x15\n\rcreatorHandle\x18\x05 \x01(\t\"l\n\x10\x43onversationView\x12\n\n\x02id\x18\x01 \x01(\t\x12+\n\x0c\x63onversation\x18\x02 \x01(\x0b\x32\x15.other98.Conversation\x12\x1f\n\x06result\x18\x04 \x01(\x0b\x32\x0f.other98.Result\"[\n\x19\x43reateConversationRequest\x12\x11\n\tauthToken\x18\x01 \x01(\t\x12+\n\x0c\x63onversation\x18\x02 \x01(\x0b\x32\x15.other98.Conversation\"\x8c\x01\n\x13NotificationBacklog\x12\x12\n\nuserHandle\x18\x01 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x02 \x01(\t\x12\x1e\n\x16numberOfMissedMessages\x18\x03 \x01(\t\x12)\n\x0blastMessage\x18\x04 \x01(\x0b\x32\x14.other98.MessageView2\x9f\x07\n\nTheOther98\x12<\n\x07GetFeed\x12\x14.other98.FeedRequest\x1a\x19.other98.FeedResponseView\"\x00\x12\x33\n\x07GetPost\x12\x13.other98.GetRequest\x1a\x11.other98.PostView\"\x00\x12\x41\n\nGetProfile\x12\x13.other98.GetRequest\x1a\x1c.other98.ProfileResponseView\"\x00\x12;\n\nCreatePost\x12\x1a.other98.CreatePostRequest\x1a\x0f.other98.Result\"\x00\x12\x34\n\rCreateComment\x12\x10.other98.Comment\x1a\x0f.other98.Result\"\x00\x12\x32\n\nVoteOnPost\x12\x11.other98.PostVote\x1a\x0f.other98.Result\"\x00\x12\x38\n\rVoteOnComment\x12\x14.other98.CommentVote\x1a\x0f.other98.Result\"\x00\x12H\n\x12GetMyConversations\x12\x13.other98.GetRequest\x1a\x19.other98.ConversationView\"\x00\x30\x01\x12\x43\n\x0fGetConversation\x12\x13.other98.GetRequest\x1a\x19.other98.ConversationView\"\x00\x12`\n\x19GetMessagesInConversation\x12).other98.GetMessagesInConversationRequest\x1a\x14.other98.MessageView\"\x00\x30\x01\x12I\n\x10GetNotifications\x12\x13.other98.GetRequest\x1a\x1c.other98.NotificationBacklog\"\x00\x30\x01\x12K\n\x12\x43reateConversation\x12\".other98.CreateConversationRequest\x1a\x0f.other98.Result\"\x00\x12=\n\x0bSendMessage\x12\x1b.other98.SendMessageRequest\x1a\x0f.other98.Result\"\x00\x12\x32\n\x10PopulateDatabase\x12\r.other98.Void\x1a\r.other98.Void\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 )
 
 
@@ -948,6 +948,380 @@ _COMMENTVOTE = _descriptor.Descriptor(
   serialized_end=2035,
 )
 
+
+_MESSAGE = _descriptor.Descriptor(
+  name='Message',
+  full_name='other98.Message',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='senderHandle', full_name='other98.Message.senderHandle', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='text', full_name='other98.Message.text', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='imageUrl', full_name='other98.Message.imageUrl', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fileUrl', full_name='other98.Message.fileUrl', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversationId', full_name='other98.Message.conversationId', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='createDate', full_name='other98.Message.createDate', index=5,
+      number=6, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2037,
+  serialized_end=2161,
+)
+
+
+_MESSAGEVIEW = _descriptor.Descriptor(
+  name='MessageView',
+  full_name='other98.MessageView',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='other98.MessageView.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='other98.MessageView.message', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2163,
+  serialized_end=2223,
+)
+
+
+_SENDMESSAGEREQUEST = _descriptor.Descriptor(
+  name='SendMessageRequest',
+  full_name='other98.SendMessageRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='authToken', full_name='other98.SendMessageRequest.authToken', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='other98.SendMessageRequest.message', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2225,
+  serialized_end=2299,
+)
+
+
+_GETMESSAGESINCONVERSATIONREQUEST = _descriptor.Descriptor(
+  name='GetMessagesInConversationRequest',
+  full_name='other98.GetMessagesInConversationRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='conversationId', full_name='other98.GetMessagesInConversationRequest.conversationId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='authToken', full_name='other98.GetMessagesInConversationRequest.authToken', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2301,
+  serialized_end=2378,
+)
+
+
+_CONVERSATION = _descriptor.Descriptor(
+  name='Conversation',
+  full_name='other98.Conversation',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='participantHandles', full_name='other98.Conversation.participantHandles', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversationName', full_name='other98.Conversation.conversationName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='iconImageUrl', full_name='other98.Conversation.iconImageUrl', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='isPrivate', full_name='other98.Conversation.isPrivate', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='creatorHandle', full_name='other98.Conversation.creatorHandle', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2381,
+  serialized_end=2513,
+)
+
+
+_CONVERSATIONVIEW = _descriptor.Descriptor(
+  name='ConversationView',
+  full_name='other98.ConversationView',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='other98.ConversationView.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversation', full_name='other98.ConversationView.conversation', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='result', full_name='other98.ConversationView.result', index=2,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2515,
+  serialized_end=2623,
+)
+
+
+_CREATECONVERSATIONREQUEST = _descriptor.Descriptor(
+  name='CreateConversationRequest',
+  full_name='other98.CreateConversationRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='authToken', full_name='other98.CreateConversationRequest.authToken', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversation', full_name='other98.CreateConversationRequest.conversation', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2625,
+  serialized_end=2716,
+)
+
+
+_NOTIFICATIONBACKLOG = _descriptor.Descriptor(
+  name='NotificationBacklog',
+  full_name='other98.NotificationBacklog',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userHandle', full_name='other98.NotificationBacklog.userHandle', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='conversationId', full_name='other98.NotificationBacklog.conversationId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='numberOfMissedMessages', full_name='other98.NotificationBacklog.numberOfMissedMessages', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='lastMessage', full_name='other98.NotificationBacklog.lastMessage', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2719,
+  serialized_end=2859,
+)
+
 _RESULT.fields_by_name['statusCode'].enum_type = _RESULT_STATUSCODE
 _RESULT_STATUSCODE.containing_type = _RESULT
 _POST.fields_by_name['postSmallView'].message_type = _POSTSMALLVIEW
@@ -968,6 +1342,12 @@ _CONTENTBLOCK.fields_by_name['children'].message_type = _CONTENTBLOCK
 _CONTENTBLOCK_CONTENTBLOCKTYPE.containing_type = _CONTENTBLOCK
 _COMMENT.fields_by_name['commentVotes'].message_type = _COMMENTVOTE
 _COMMENTVIEW.fields_by_name['comment'].message_type = _COMMENT
+_MESSAGEVIEW.fields_by_name['message'].message_type = _MESSAGE
+_SENDMESSAGEREQUEST.fields_by_name['message'].message_type = _MESSAGE
+_CONVERSATIONVIEW.fields_by_name['conversation'].message_type = _CONVERSATION
+_CONVERSATIONVIEW.fields_by_name['result'].message_type = _RESULT
+_CREATECONVERSATIONREQUEST.fields_by_name['conversation'].message_type = _CONVERSATION
+_NOTIFICATIONBACKLOG.fields_by_name['lastMessage'].message_type = _MESSAGEVIEW
 DESCRIPTOR.message_types_by_name['Void'] = _VOID
 DESCRIPTOR.message_types_by_name['GetRequest'] = _GETREQUEST
 DESCRIPTOR.message_types_by_name['FeedRequest'] = _FEEDREQUEST
@@ -985,6 +1365,14 @@ DESCRIPTOR.message_types_by_name['Comment'] = _COMMENT
 DESCRIPTOR.message_types_by_name['CommentView'] = _COMMENTVIEW
 DESCRIPTOR.message_types_by_name['PostVote'] = _POSTVOTE
 DESCRIPTOR.message_types_by_name['CommentVote'] = _COMMENTVOTE
+DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
+DESCRIPTOR.message_types_by_name['MessageView'] = _MESSAGEVIEW
+DESCRIPTOR.message_types_by_name['SendMessageRequest'] = _SENDMESSAGEREQUEST
+DESCRIPTOR.message_types_by_name['GetMessagesInConversationRequest'] = _GETMESSAGESINCONVERSATIONREQUEST
+DESCRIPTOR.message_types_by_name['Conversation'] = _CONVERSATION
+DESCRIPTOR.message_types_by_name['ConversationView'] = _CONVERSATIONVIEW
+DESCRIPTOR.message_types_by_name['CreateConversationRequest'] = _CREATECONVERSATIONREQUEST
+DESCRIPTOR.message_types_by_name['NotificationBacklog'] = _NOTIFICATIONBACKLOG
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Void = _reflection.GeneratedProtocolMessageType('Void', (_message.Message,), dict(
@@ -1106,6 +1494,62 @@ CommentVote = _reflection.GeneratedProtocolMessageType('CommentVote', (_message.
   ))
 _sym_db.RegisterMessage(CommentVote)
 
+Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), dict(
+  DESCRIPTOR = _MESSAGE,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.Message)
+  ))
+_sym_db.RegisterMessage(Message)
+
+MessageView = _reflection.GeneratedProtocolMessageType('MessageView', (_message.Message,), dict(
+  DESCRIPTOR = _MESSAGEVIEW,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.MessageView)
+  ))
+_sym_db.RegisterMessage(MessageView)
+
+SendMessageRequest = _reflection.GeneratedProtocolMessageType('SendMessageRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SENDMESSAGEREQUEST,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.SendMessageRequest)
+  ))
+_sym_db.RegisterMessage(SendMessageRequest)
+
+GetMessagesInConversationRequest = _reflection.GeneratedProtocolMessageType('GetMessagesInConversationRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETMESSAGESINCONVERSATIONREQUEST,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.GetMessagesInConversationRequest)
+  ))
+_sym_db.RegisterMessage(GetMessagesInConversationRequest)
+
+Conversation = _reflection.GeneratedProtocolMessageType('Conversation', (_message.Message,), dict(
+  DESCRIPTOR = _CONVERSATION,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.Conversation)
+  ))
+_sym_db.RegisterMessage(Conversation)
+
+ConversationView = _reflection.GeneratedProtocolMessageType('ConversationView', (_message.Message,), dict(
+  DESCRIPTOR = _CONVERSATIONVIEW,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.ConversationView)
+  ))
+_sym_db.RegisterMessage(ConversationView)
+
+CreateConversationRequest = _reflection.GeneratedProtocolMessageType('CreateConversationRequest', (_message.Message,), dict(
+  DESCRIPTOR = _CREATECONVERSATIONREQUEST,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.CreateConversationRequest)
+  ))
+_sym_db.RegisterMessage(CreateConversationRequest)
+
+NotificationBacklog = _reflection.GeneratedProtocolMessageType('NotificationBacklog', (_message.Message,), dict(
+  DESCRIPTOR = _NOTIFICATIONBACKLOG,
+  __module__ = 'other98_pb2'
+  # @@protoc_insertion_point(class_scope:other98.NotificationBacklog)
+  ))
+_sym_db.RegisterMessage(NotificationBacklog)
+
 
 DESCRIPTOR._options = None
 
@@ -1115,8 +1559,8 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2038,
-  serialized_end=2509,
+  serialized_start=2862,
+  serialized_end=3789,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetFeed',
@@ -1182,9 +1626,63 @@ _THEOTHER98 = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='GetMyConversations',
+    full_name='other98.TheOther98.GetMyConversations',
+    index=7,
+    containing_service=None,
+    input_type=_GETREQUEST,
+    output_type=_CONVERSATIONVIEW,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetConversation',
+    full_name='other98.TheOther98.GetConversation',
+    index=8,
+    containing_service=None,
+    input_type=_GETREQUEST,
+    output_type=_CONVERSATIONVIEW,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetMessagesInConversation',
+    full_name='other98.TheOther98.GetMessagesInConversation',
+    index=9,
+    containing_service=None,
+    input_type=_GETMESSAGESINCONVERSATIONREQUEST,
+    output_type=_MESSAGEVIEW,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetNotifications',
+    full_name='other98.TheOther98.GetNotifications',
+    index=10,
+    containing_service=None,
+    input_type=_GETREQUEST,
+    output_type=_NOTIFICATIONBACKLOG,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='CreateConversation',
+    full_name='other98.TheOther98.CreateConversation',
+    index=11,
+    containing_service=None,
+    input_type=_CREATECONVERSATIONREQUEST,
+    output_type=_RESULT,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SendMessage',
+    full_name='other98.TheOther98.SendMessage',
+    index=12,
+    containing_service=None,
+    input_type=_SENDMESSAGEREQUEST,
+    output_type=_RESULT,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='PopulateDatabase',
     full_name='other98.TheOther98.PopulateDatabase',
-    index=7,
+    index=13,
     containing_service=None,
     input_type=_VOID,
     output_type=_VOID,

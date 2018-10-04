@@ -16,6 +16,15 @@ service TheOther98 {
     rpc CreateComment (Comment) returns (Result) {}
     rpc VoteOnPost(PostVote) returns (Result) {}
     rpc VoteOnComment(CommentVote) returns (Result) {}
+
+    //chat
+    rpc GetMyConversations (GetRequest) returns (stream ConversationView) {}
+    rpc GetConversation (GetRequest) returns (ConversationView) {}
+    rpc GetMessagesInConversation (GetMessagesInConversationRequest) returns (stream MessageView) {}
+    rpc GetNotifications (GetRequest) returns (stream NotificationBacklog) {}
+    rpc CreateConversation (CreateConversationRequest) returns (Result) {}
+    rpc SendMessage (SendMessageRequest) returns (Result) {}
+
     // demo methods
     rpc PopulateDatabase(Void) returns (Void) {}
 }
@@ -160,4 +169,56 @@ message CommentVote {
     int64 commentId = 2;
     string userHandle = 3;
     int32 voteValue = 4;
+}
+//END-social
+
+//BEGIN-chat
+message Message {
+    string senderHandle = 1;
+    string text = 2;
+    string imageUrl = 3;
+    string fileUrl = 4;
+    string conversationId = 5;
+    int64 createDate = 6;
+}
+
+message MessageView {
+    string id = 1;
+    Message message = 2;
+}
+
+message SendMessageRequest {
+    string authToken = 1;
+    Message message = 2;
+}
+
+message GetMessagesInConversationRequest {
+    string conversationId = 1;
+    string authToken = 2;
+}
+
+message Conversation {
+    repeated string participantHandles = 1;
+    string conversationName = 2;
+    string iconImageUrl = 3;
+    bool isPrivate = 4;
+    string creatorHandle = 5;
+}
+
+message ConversationView {
+    string id = 1;
+    Conversation conversation = 2;
+    Result result = 4;
+}
+
+message CreateConversationRequest {
+    string authToken = 1;
+    Conversation conversation = 2;
+}
+
+message NotificationBacklog {
+    string userHandle = 1;
+    string conversationId = 2;
+    string numberOfMissedMessages = 3;
+    MessageView lastMessage = 4;
 }

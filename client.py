@@ -56,6 +56,42 @@ def vote_on_post(stub, user_handle: str, postview_id_string: str, vote_value: in
     postvote.voteValue = vote_value
     return stub.VoteOnPost(postvote)
 
+
+def create_conversation(stub, user_handle: str, participant_handles: [str], conversationName: str, isPrivate: bool):
+    create_conversation_request = other98_pb2.CreateConversationRequest()
+    create_conversation_request.authToken = user_handle
+    conversation = other98_pb2.Conversation()
+    for handle in participant_handles:
+        conversation.participantHandles.extend([handle])
+    conversation.conversationName = conversationName
+    conversation.isPrivate = isPrivate
+    create_conversation_request.conversation.CopyFrom(conversation)
+    return stub.CreateConversation(create_conversation_request)
+
+
+def create_message(stub, user_handle: str, conversationId: str, messageText: str):
+    send_message_request = other98_pb2.SendMessageRequest()
+    send_message_request.authToken = user_handle
+    message = other98_pb2.Message()
+    message.text = messageText
+    message.conversationId = conversationId
+    send_message_request.message.CopyFrom(message)
+    return stub.SendMessage(send_message_request)
+
+
+def get_my_conversations(stub, user_handle: str):
+    get_request = other98_pb2.GetRequest()
+    get_request.authToken = user_handle
+    return stub.GetMyConversations(get_request)
+
+
+def get_messages_in_conversation(stub, user_handle: str, conversationId: str):
+    get_request = other98_pb2.GetRequest()
+    get_request.authToken = user_handle
+    get_request.value = conversationId
+    return stub.GetMessagesInConversation(get_request)
+
+
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs

@@ -1,15 +1,16 @@
 import time
 from datetime import datetime, timezone, timedelta
 from concurrent import futures
+
 import util
+import chat
 
-import grpc
-
-import pymongo
 import random
 import string
+import pymongo
 from bson.objectid import ObjectId
 
+import grpc
 import other98_pb2 as other98_pb2
 import other98_pb2_grpc as other98_pb2_grpc
 from google.protobuf.json_format import MessageToJson
@@ -306,13 +307,19 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
     database_name = 'theOther98Test'
     profiles_collection_name = 'profiles'
     posts_collection_name = 'posts'
+    conversations_collection_name = 'conversations'
+    messages_collection_name = 'messages'
+    notifications_collection_name = 'notifications'
     # vote_collection_name_posts = 'votes_posts'
     # vote_collection_name_comments = 'votes_comments'
 
-    serverInstance = pymongo.MongoClient("mongodb://localhost:27017/")
+    serverInstance = pymongo.MongoClient("mongodb://localhost:27017/?replicaSet=rs")
     theOther98Db = serverInstance[database_name]
     profilesCollection = theOther98Db[profiles_collection_name]
     postsCollection = theOther98Db[posts_collection_name]
+    conversationsCollection = theOther98Db[conversations_collection_name]
+    messagesCollection = theOther98Db[messages_collection_name]
+    notificationsCollection = theOther98Db[notifications_collection_name]
 
     def __init__(self):
         # create indexes
@@ -370,7 +377,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
             return profileresponseview
 
     def CreatePost(self, request, context):
-        request_log = log_post_request('create post', context, request)
+        request_log = log_post_request('create post', request, context)
         viewable_roles = []
         for role in request.viewable_roles:
             viewable_roles.append(role)
@@ -391,7 +398,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
             return result
 
     def CreateComment(self, request, context):
-        request_log = log_post_request('create comment', context, request)
+        request_log = log_post_request('create comment', request, context)
         result = other98_pb2.Result()
         comment = request
         if comment.postViewId is None or comment.postViewId == '':
@@ -435,7 +442,7 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
                 return result
 
     def VoteOnComment(self, request, context):
-        request_log = log_post_request('vote on post', request, context)
+        request_log = log_post_request('vote on comment', request, context)
         result = other98_pb2.Result()
         if request.postViewId == '' or request.userHandle == '' or request.commentId == 0:
             result.statusCode = 3
@@ -453,6 +460,148 @@ class gRPCServer(other98_pb2_grpc.TheOther98Servicer):
                 result.errorMessage = 'The write operation was unsuccessful, please try again'
                 log_result(result, request_log)
                 return result
+
+    def GetMyConversations(self, request, context):
+        request_log = log_get_request('get my conversations', request, context)
+        authToken = request.authToken
+        # get username here when possible, for now auth token will be the username
+        cursor = chat.get_current_conversations_for_user(gRPCServer.conversationsCollection, authToken)
+        # cursor = gRPCServer.conversationsCollection.changes([
+        #     {'$match': {
+        #         'operationType': {'$in': ['insert', 'replace']}
+        #     }},
+        #     {'$match': {
+        #         'newDocument.n': {'$gte': 1}
+        #     }}
+        # ])
+        try:
+            obj = cursor.next()
+            while obj:
+                try:
+                    conversation_view = other98_pb2.ConversationView()
+                    conversation = chat.get_conversation_with_object_id(gRPCServer.conversationsCollection,
+                                                                        obj['_id'], authToken)
+                    if conversation:
+                        conversation_view.conversation.CopyFrom(conversation)
+                        conversation_view.id = str(obj['_id'])
+                        result = other98_pb2.Result()
+                        result.statusCode = 1
+                        conversation_view.result.CopyFrom(result)
+                        log_result(conversation_view, request_log)
+                        yield conversation_view
+                    obj = cursor.next()
+                except StopIteration:
+                    cursor = chat.get_conversations_change_stream_for_user(gRPCServer.conversationsCollection, user_handle=authToken)
+                    try:
+                        print(str(cursor))
+                        obj = cursor.next()
+                        while obj:
+                            print(str(obj))
+                            objectId = obj['fullDocument']['_id']
+                            try:
+                                conversation_view = other98_pb2.ConversationView()
+                                conversation = chat.get_conversation_with_object_id(gRPCServer.conversationsCollection,
+                                                                                    objectId, authToken)
+                                if conversation:
+                                    conversation_view.conversation.CopyFrom(conversation)
+                                    conversation_view.id = str(objectId)
+                                    result = other98_pb2.Result()
+                                    result.statusCode = 1
+                                    conversation_view.result.CopyFrom(result)
+                                    log_result(conversation_view, request_log)
+                                    yield conversation_view
+                                obj = cursor.next()
+                            except StopIteration:
+                                break
+                    except StopIteration:
+                        print('waiting')
+        except StopIteration:
+            obj = None
+
+    def GetConversation(self, request, context):
+        request_log = log_get_request('get conversation', request, context)
+        conversationId = request.value
+        authToken = request.authToken
+        # get username here when possible, for now auth token will be the username
+        conversation_view = other98_pb2.ConversationView()
+        result = other98_pb2.Result()
+        conversation = chat.get_conversation_with_id_string(gRPCServer.conversationsCollection, conversationId, authToken)
+        if conversation:
+            result.statusCode = 1
+            conversation_view.conversation.CopyFrom(conversation)
+        else:
+            result.statusCode = 4
+            result.errorMessage = "Conversation not found"
+        conversation_view.result.CopyFrom(result)
+        log_result(conversation_view, request_log)
+        return conversation_view
+
+    def GetMessagesInConversation(self, request, context):
+        request_log = log_get_request('get my conversations', request, context)
+        conversationId = request.conversationId
+        authToken = request.authToken
+        # get username here when possible, for now auth token will be the username
+        if chat.can_user_participate_in_conversation(gRPCServer.conversationsCollection, conversationId,
+                                                     authToken):
+            # first yield old messages
+            current_messages = chat.get_current_messages_in_conversation(gRPCServer.conversationsCollection, gRPCServer.messagesCollection, conversationId, authToken)
+            for message in current_messages:
+                print(message)
+                yield message
+
+            # then subscribe to changes
+            cursor = chat.get_message_change_stream_for_conversation(gRPCServer.messagesCollection, conversationId)
+            for change in cursor:
+                try:
+                    # if chat.can_user_participate_in_conversation(gRPCServer.conversationsCollection, change['fullDocument']['conversationId'], authToken) \
+                    #         and change['fullDocument']['senderHandle'] != authToken:
+                    if chat.can_user_participate_in_conversation(gRPCServer.conversationsCollection,
+                                                                 change['fullDocument']['conversationId'], authToken):
+                        yield chat.get_message_view_with_object_id(gRPCServer.messagesCollection, change['fullDocument']['_id'])
+                except StopIteration:
+                    continue
+        else:
+            print('fuck off')
+
+    def CreateConversation(self, request, context):
+        # request_log = log_post_request("create conversation", request, context)
+        authToken = request.authToken
+        conversation = request.conversation
+        # get creator handle using authToken. For now, authToken is the creator handle
+        # perform validation on whether user is able to create conversations
+        result = other98_pb2.Result()
+        if authToken and authToken != '' and authToken != "":
+            conversation.creatorHandle = authToken
+            createdId = chat.create_conversation(gRPCServer.conversationsCollection, conversation.creatorHandle, conversation)
+            if createdId and createdId != '' and createdId != "":
+                result.statusCode = 1
+                result.createdId = createdId
+            else:
+                result.statusCode = 5
+                result.errorMessage = "An error unknown occurred while creating this conversation"
+        # log_result(result, request_log)
+        return result
+
+    def SendMessage(self, request, context):
+        # request_log = log_post_request("send message", request, context)
+        authToken = request.authToken
+        message = request.message
+        result = other98_pb2.Result()
+        # get creator handle using authToken. For now, authToken is the creator handle
+        if chat.can_user_participate_in_conversation(gRPCServer.conversationsCollection, message.conversationId, authToken):
+            message.createDate = util.current_milli_time()
+            message.senderHandle = authToken
+            createdId = chat.create_message_in_conversation(gRPCServer.conversationsCollection, gRPCServer.messagesCollection, message)
+            if createdId and createdId != '' and createdId != "":
+                result.createdId = createdId
+                result.statusCode = 1
+            else:
+                result.statusCode = 5
+                result.errorMessage = "An unknown error when sending the message"
+        else:
+            result.statusCode = 3
+            result.errorMessage = "You are not allowed to participate in that conversation"
+        return result
 
     def PopulateDatabase(self, request, context):
         gRPCServer.serverInstance.drop_database(name_or_database=gRPCServer.database_name)

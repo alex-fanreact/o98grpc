@@ -56,5 +56,19 @@ def parse_comment_vote(raw_result) -> other98_pb2.CommentVote:
         return None
 
 
+def parse_conversation(raw_result) -> other98_pb2.Conversation:
+    try:
+        return json_format.Parse(dumps(raw_result), other98_pb2.Conversation(), ignore_unknown_fields=True)
+    except:
+        return None
+
+
+def parse_message(raw_result) -> other98_pb2.Message:
+    try:
+        return json_format.Parse(dumps(raw_result), other98_pb2.Message(), ignore_unknown_fields=True)
+    except:
+        return None
+
+
 # miscellaneous
 current_milli_time = lambda: int(round(time.time() * 1000))

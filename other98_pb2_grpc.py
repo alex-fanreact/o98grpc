@@ -49,6 +49,36 @@ class TheOther98Stub(object):
         request_serializer=other98__pb2.CommentVote.SerializeToString,
         response_deserializer=other98__pb2.Result.FromString,
         )
+    self.GetMyConversations = channel.unary_stream(
+        '/other98.TheOther98/GetMyConversations',
+        request_serializer=other98__pb2.GetRequest.SerializeToString,
+        response_deserializer=other98__pb2.ConversationView.FromString,
+        )
+    self.GetConversation = channel.unary_unary(
+        '/other98.TheOther98/GetConversation',
+        request_serializer=other98__pb2.GetRequest.SerializeToString,
+        response_deserializer=other98__pb2.ConversationView.FromString,
+        )
+    self.GetMessagesInConversation = channel.unary_stream(
+        '/other98.TheOther98/GetMessagesInConversation',
+        request_serializer=other98__pb2.GetMessagesInConversationRequest.SerializeToString,
+        response_deserializer=other98__pb2.MessageView.FromString,
+        )
+    self.GetNotifications = channel.unary_stream(
+        '/other98.TheOther98/GetNotifications',
+        request_serializer=other98__pb2.GetRequest.SerializeToString,
+        response_deserializer=other98__pb2.NotificationBacklog.FromString,
+        )
+    self.CreateConversation = channel.unary_unary(
+        '/other98.TheOther98/CreateConversation',
+        request_serializer=other98__pb2.CreateConversationRequest.SerializeToString,
+        response_deserializer=other98__pb2.Result.FromString,
+        )
+    self.SendMessage = channel.unary_unary(
+        '/other98.TheOther98/SendMessage',
+        request_serializer=other98__pb2.SendMessageRequest.SerializeToString,
+        response_deserializer=other98__pb2.Result.FromString,
+        )
     self.PopulateDatabase = channel.unary_unary(
         '/other98.TheOther98/PopulateDatabase',
         request_serializer=other98__pb2.Void.SerializeToString,
@@ -109,6 +139,48 @@ class TheOther98Servicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def GetMyConversations(self, request, context):
+    """chat
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetConversation(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetMessagesInConversation(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetNotifications(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def CreateConversation(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def SendMessage(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def PopulateDatabase(self, request, context):
     """demo methods
     """
@@ -152,6 +224,36 @@ def add_TheOther98Servicer_to_server(servicer, server):
       'VoteOnComment': grpc.unary_unary_rpc_method_handler(
           servicer.VoteOnComment,
           request_deserializer=other98__pb2.CommentVote.FromString,
+          response_serializer=other98__pb2.Result.SerializeToString,
+      ),
+      'GetMyConversations': grpc.unary_stream_rpc_method_handler(
+          servicer.GetMyConversations,
+          request_deserializer=other98__pb2.GetRequest.FromString,
+          response_serializer=other98__pb2.ConversationView.SerializeToString,
+      ),
+      'GetConversation': grpc.unary_unary_rpc_method_handler(
+          servicer.GetConversation,
+          request_deserializer=other98__pb2.GetRequest.FromString,
+          response_serializer=other98__pb2.ConversationView.SerializeToString,
+      ),
+      'GetMessagesInConversation': grpc.unary_stream_rpc_method_handler(
+          servicer.GetMessagesInConversation,
+          request_deserializer=other98__pb2.GetMessagesInConversationRequest.FromString,
+          response_serializer=other98__pb2.MessageView.SerializeToString,
+      ),
+      'GetNotifications': grpc.unary_stream_rpc_method_handler(
+          servicer.GetNotifications,
+          request_deserializer=other98__pb2.GetRequest.FromString,
+          response_serializer=other98__pb2.NotificationBacklog.SerializeToString,
+      ),
+      'CreateConversation': grpc.unary_unary_rpc_method_handler(
+          servicer.CreateConversation,
+          request_deserializer=other98__pb2.CreateConversationRequest.FromString,
+          response_serializer=other98__pb2.Result.SerializeToString,
+      ),
+      'SendMessage': grpc.unary_unary_rpc_method_handler(
+          servicer.SendMessage,
+          request_deserializer=other98__pb2.SendMessageRequest.FromString,
           response_serializer=other98__pb2.Result.SerializeToString,
       ),
       'PopulateDatabase': grpc.unary_unary_rpc_method_handler(
